@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+    <OutputPath>D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubServer\Plugins\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DarkRift">
+      <HintPath>..\..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\DarkRift.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkRift.Server">
+      <HintPath>..\..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
