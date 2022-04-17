@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
+  m_Name: Readme
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: 727a75301c3d24613a3ebcec4a24c2c8, type: 3}
+  title: Nifty Club
+  sections:
+  - heading: Welcome to Nifty Club
+    text: In order to run this project, you will need a running DarkRift2 server instance.
+    text2:
+    linkText: 
+    url:
+  - heading: DarkRift2 Server
+    text: Includes the executable for the server. Executable can be found by using menu
+    text2: <color=orange>Tools > Nifty League > Open Folder DarkRift Console</color>
+    linkText: 
+    url: 
+  - heading: DarkRift2 Plugins
+    text: Includes plugins project that can be built to generate DLLs we use with Dark Rift executable. Plugins folder can be found by using menu
+    text2: <color=orange>Tools > Nifty League > Open Folder DarkRift Plugins</color>
+    linkText:
+    url:
+  loadedLayout: 1

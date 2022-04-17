@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiftyClubPlugins", "NiftyClubPlugins.csproj", "{A539D585-900E-4666-920A-EDCF297323EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A539D585-900E-4666-920A-EDCF297323EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A539D585-900E-4666-920A-EDCF297323EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A539D585-900E-4666-920A-EDCF297323EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A539D585-900E-4666-920A-EDCF297323EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB9665AE-9B6A-4288-9D0E-86067C9F8F2A}
+	EndGlobalSection
+EndGlobal

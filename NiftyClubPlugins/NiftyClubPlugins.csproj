@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DarkRift">
+      <HintPath>..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\DarkRift.dll</HintPath>
+    </Reference>
+    <Reference Include="DarkRift.Server">
+      <HintPath>..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(ProjectDir)bin\Debug\netstandard2.0\NiftyClubPlugins.dll&quot; &quot;D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubServer\Plugins&quot; /Y" />
+  </Target>
+
+</Project>

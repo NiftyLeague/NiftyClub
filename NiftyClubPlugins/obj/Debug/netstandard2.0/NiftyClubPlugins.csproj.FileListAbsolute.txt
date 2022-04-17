@@ -1,0 +1,15 @@
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\NiftyClubPlugins.deps.json
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\NiftyClubPlugins.dll
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\NiftyClubPlugins.pdb
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\DarkRift.dll
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\DarkRift.Server.dll
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\DarkRift.xml
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\bin\Debug\netstandard2.0\DarkRift.Server.xml
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.csproj.AssemblyReference.cache
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.AssemblyInfoInputs.cache
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.AssemblyInfo.cs
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.csproj.CoreCompileInputs.cache
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.csproj.CopyComplete
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.dll
+D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubPlugins\obj\Debug\netstandard2.0\NiftyClubPlugins.pdb

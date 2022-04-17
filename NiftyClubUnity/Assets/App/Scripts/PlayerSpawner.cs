@@ -1,5 +1,4 @@
 ﻿using AgarPlugin.Domain;
-using App.Scripts;
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
