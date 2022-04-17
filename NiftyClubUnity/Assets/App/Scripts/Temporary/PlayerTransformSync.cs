@@ -38,7 +38,7 @@ public class PlayerTransformSync : MonoBehaviour
 				writer.Write(playerPosition.x);
 				writer.Write(playerPosition.y);
 
-				using (Message message = Message.Create(Tags.MovePlayerTag, writer))
+				using (Message message = Message.Create(TagsOld.MovePlayerTag, writer))
 					Client.SendMessage(message, SendMode.Unreliable);
 			}
 

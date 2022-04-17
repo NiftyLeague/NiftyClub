@@ -51,7 +51,7 @@ public class PlayerSpawner : MonoBehaviour
 		using (Message message = e.GetMessage())
 		using (DarkRiftReader reader = message.GetReader())
 		{
-			if (message.Tag == Tags.SpawnPlayerTag)
+			if (message.Tag == TagsOld.SpawnPlayerTag)
 			{
 				if (reader.Length % 17 != 0)
 				{
@@ -92,7 +92,7 @@ public class PlayerSpawner : MonoBehaviour
 					networkPlayerManager.Add(id, agarObj);
 				}
 			}
-			else if (message.Tag == Tags.DeSpawnPlayerTag)
+			else if (message.Tag == TagsOld.DeSpawnPlayerTag)
 			{
 				ushort id = reader.ReadUInt16();
 				
@@ -101,7 +101,7 @@ public class PlayerSpawner : MonoBehaviour
 					networkPlayerManager.Remove (id);
 				}
 			}
-			else if (message.Tag == Tags.MovePlayerTag)
+			else if (message.Tag == TagsOld.MovePlayerTag)
 			{
 				ushort id = reader.ReadUInt16();
 				Vector3 newPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), 0);
