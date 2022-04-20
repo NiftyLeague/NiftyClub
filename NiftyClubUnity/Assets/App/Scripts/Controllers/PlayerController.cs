@@ -6,6 +6,16 @@ namespace NiftyClub.Controllers
 {
 	public class PlayerController : MonoBehaviour
 	{
+		[Tooltip("Rotation speed multiplier"), Range(2.0f, 12.0f), SerializeField]
+		private float rotateSpeed = 4.0f;
+
+		[Header("Look Around Limits")]
+		[Tooltip("Max vertical viewing angle, both seated and standing")]
+		[Range(0.0f, 90.0f)]
+		[SerializeField] private float maxVerticalViewAngle = 60.0f;
+		
+		private Vector2 _rotation;
+		private Vector3 _characterVelocity;
 		private Vector2 _look;
 		private Vector2 _move;
 		
@@ -25,6 +35,11 @@ namespace NiftyClub.Controllers
 			// play sounds locally
 			makeFootstepSound += PlayFootstepSound;
 			makeJumpSound += PlayJumpSound;
+		}
+		
+		void Update()
+		{
+			Look(_look);
 		}
 
 		#endregion
@@ -81,6 +96,22 @@ namespace NiftyClub.Controllers
 		private void Move (Vector2 direction)
 		{
 			
+		}
+		
+		private void Look(Vector2 rotate) {
+			float scaledRotateSpeed = rotateSpeed * Time.deltaTime;
+
+			_rotation.x += rotate.x * scaledRotateSpeed;
+			if (false) { // _sitting || _isSittingDown) { //rotate just the camera, not the character
+				/* _rotation.x = Mathf.Clamp(_rotation.x, -maxSideViewAngle, maxSideViewAngle);
+				_camera.localEulerAngles = new Vector3(_camera.localEulerAngles.x, _rotation.x, 0.0f); */
+			}
+			else //rotate whole character (including camera)
+				_transform.localEulerAngles = new Vector3(0.0f, _rotation.x, 0.0f);
+
+			_rotation.y -= rotate.y * scaledRotateSpeed;
+			_rotation.y = Mathf.Clamp(_rotation.y, -maxVerticalViewAngle, maxVerticalViewAngle);
+			// _camera.localEulerAngles = new Vector3(_rotation.y, _camera.localEulerAngles.y, 0.0f);
 		}
 		
 		// Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller
