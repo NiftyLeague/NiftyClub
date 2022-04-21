@@ -9,10 +9,21 @@ namespace NiftyClub.Controllers
 		[Tooltip("Rotation speed multiplier"), Range(2.0f, 12.0f), SerializeField]
 		private float rotateSpeed = 4.0f;
 
+		[Header("Ground Movement")]
+		[Tooltip("Max base speed when grounded (before speed Multiplier)")]
+		[SerializeField] private float maxSpeedOnGround = 4.0f;
+
+		[Tooltip(
+			"Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
+		public float movementSharpnessOnGround = 1f;
+
 		[Header("Look Around Limits")]
 		[Tooltip("Max vertical viewing angle, both seated and standing")]
 		[Range(0.0f, 90.0f)]
 		[SerializeField] private float maxVerticalViewAngle = 60.0f;
+		
+		[BoxGroup ("Links"), SerializeField] private Transform _transform;
+		[BoxGroup ("Links"), SerializeField] private CharacterController _controller;
 		
 		private Vector2 _rotation;
 		private Vector3 _characterVelocity;
@@ -21,9 +32,10 @@ namespace NiftyClub.Controllers
 		
 		private bool _isJumping = false;
 		private bool _jump = false;
-		
-		[BoxGroup ("Links"), SerializeField] private Transform _transform;
-		[BoxGroup ("Links"), SerializeField] private CharacterController _controller;
+
+		public bool OnGround => isGrounded;
+
+		public Vector3 Velocity => _move;
 
 		#region Unity Methods
 		
@@ -31,15 +43,14 @@ namespace NiftyClub.Controllers
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
-			
-			// play sounds locally
-			makeFootstepSound += PlayFootstepSound;
-			makeJumpSound += PlayJumpSound;
 		}
 		
 		void Update()
 		{
 			Look(_look);
+			
+			GroundCheck();
+			Move(_move);
 		}
 
 		#endregion
@@ -70,7 +81,11 @@ namespace NiftyClub.Controllers
 		private const float k_JumpGroundingPreventionTime = 0.2f;
 		private const float k_GroundCheckDistance = 0.2f;
 		
-		void GroundCheck() {
+		void GroundCheck()
+		{
+			isGrounded = true;
+			return;
+			
 			isGrounded = false;
 			// if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
 			if (Time.time >= _lastTimeJumped + k_JumpGroundingPreventionTime) {
@@ -95,7 +110,17 @@ namespace NiftyClub.Controllers
 
 		private void Move (Vector2 direction)
 		{
+			float speedModifier = 1f; // _running ? runSpeedMultiplier : 1f;
+			// Rotate direction according to world Y rotation of player.
+			Vector3 moveDirection = Quaternion.Euler (0f, _transform.localEulerAngles.y, 0f) *
+			                        new Vector3 (direction.x, 0f, direction.y);
+			Vector3 movement = moveDirection;
 			
+			Vector3 targetVelocity = movement * (maxSpeedOnGround * speedModifier);
+			_characterVelocity = Vector3.Lerp (_characterVelocity, targetVelocity,
+				movementSharpnessOnGround * Time.deltaTime);
+
+			_controller.Move (_characterVelocity * Time.deltaTime);
 		}
 		
 		private void Look(Vector2 rotate) {
@@ -126,23 +151,5 @@ namespace NiftyClub.Controllers
 		Vector3 GetCapsuleTopHemisphere(float atHeight) {
 			return _transform.position + (_transform.up * (atHeight - _controller.radius));
 		}
-
-		#region Local Sounds
-
-		// use delegates for playing sounds over network for other players
-		private delegate void MakeSound();
-
-		private MakeSound makeFootstepSound;
-		private MakeSound makeJumpSound;
-		
-		private void PlayFootstepSound() {
-			// audioSource.PlayOneShot(footstepSFX, footstepSFXVolume);
-		}
-
-		private void PlayJumpSound() {
-			// audioSource.PlayOneShot(jumpSFX, jumpSFXVolume);
-		}
-
-		#endregion
 	}
 }

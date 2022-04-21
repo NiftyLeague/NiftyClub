@@ -178,61 +178,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Mouse",
-                    "id": "a9da77f7-2ee8-40df-a1fb-b68b7bb97eff",
-                    "path": "2DVector",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "2e054660-62c9-435d-9b15-77e38d55c3f3",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "b1c2e174-3d01-4c57-8a84-556aa4764309",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "8f7498d4-27bc-4e97-b6f9-a4ad65733a11",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "5fcef160-7ed0-464a-87ab-45433d05b408",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "c106d6e6-2780-47ff-b318-396171bd54cc",
                     "path": "<Gamepad>/rightStick",

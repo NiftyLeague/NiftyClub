@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: dc221915265158d4f8cc01c33196f9ab
+  m_SerializeEntries:
+  - m_GUID: a4f5a4c785d3b0d48b5a0779e964120c
+    m_Address: Assets/App/Sprites/sheets/movement/0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6304f7ce273c0bb4bb6bca869fef863b
+    m_Address: Assets/App/Sprites/sheets/movement/1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8c2eeb6fdd7a8a44db8d7c470e1b3af7
+    m_Address: Assets/App/Sprites/sheets/movement/2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a180d1a96564c2428abcd9c8dbd5a0e
+    m_Address: Assets/App/Sprites/sheets/movement/3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: abbfb0ecb2e47754a8f2c18fee492123
+    m_Address: Assets/App/Sprites/sheets/movement/4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 17b95fcf98607eb4498d5a752f00b791
+    m_Address: Assets/App/Sprites/sheets/movement/5.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 751c578ac38a8a44ba98d6b3cacce58a
+    m_Address: Assets/App/Sprites/sheets/movement/6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f9e7c8d502523ab4496e5628663c2fda
+    m_Address: Assets/App/Sprites/sheets/movement/7.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b36d850c86db3f04fac8d4e5088add3b
+    m_Address: Assets/App/Sprites/sheets/movement/8.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ef748e8904dde8a42b4e958da6913f6c
+    m_Address: Assets/App/Sprites/sheets/movement/9.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: c4bc976c8b4e69d49878046da321d347, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8e299d65f30bd084c871645b00e9090b, type: 2}
+    - {fileID: 11400000, guid: b036b3446790f8f41949e10051945695, type: 2}
