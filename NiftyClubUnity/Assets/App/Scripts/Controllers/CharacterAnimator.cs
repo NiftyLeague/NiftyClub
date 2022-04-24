@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NiftyClubPlugins.Common.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace NiftyClub.Controllers
 		
 		private AnimState animState;
 		private CharacterState state;
+
+		private RunDirection lastRunDirection = RunDirection.Down;
 
 		#region Unity Methods
 
@@ -80,6 +83,8 @@ namespace NiftyClub.Controllers
 				}
 				runDown = stateSprites.ToArray ();
 			};
+			
+			AnimateIdle ();
 		}
 		
 		void Update ()
@@ -114,12 +119,32 @@ namespace NiftyClub.Controllers
 
 		#endregion
 		
-		void AnimateIdle()
+		private void AnimateIdle()
 		{
-			rend.sprite = idleRight[0];
+			switch (lastRunDirection)
+			{
+				case RunDirection.Right:
+					rend.sprite = idleRight[0];
+					
+					break;
+				case RunDirection.Up:
+					rend.sprite = idleUp[0];
+					
+					break;
+				case RunDirection.Left:
+					rend.sprite = idleLeft[0];
+
+					break;
+				case RunDirection.Down:
+					rend.sprite = idleDown[0];
+
+					break;
+				default:
+					throw new ArgumentOutOfRangeException ();
+			}
 		}
 		
-		void AnimateRun (Sprite[] runSprites)
+		private void AnimateRun (Sprite[] runSprites)
 		{
 			int frameBefore = frame;
 			RunAnimation(runSprites, 0.04f);
@@ -135,16 +160,32 @@ namespace NiftyClub.Controllers
 			if (Mathf.Abs (moveDirection.x) > Mathf.Abs (moveDirection.y))
 			{
 				if (moveDirection.x > 0)
+				{
+					lastRunDirection = RunDirection.Right;
+					
 					return runRight;
+				}
 				else
+				{
+					lastRunDirection = RunDirection.Left;
+					
 					return runLeft;
+				}
 			}
 			else
 			{
 				if (moveDirection.y > 0)
+				{
+					lastRunDirection = RunDirection.Up;
+
 					return runUp;
+				}
 				else
+				{
+					lastRunDirection = RunDirection.Down;
+
 					return runDown;
+				}
 			}
 		}
 		
@@ -166,9 +207,9 @@ namespace NiftyClub.Controllers
 				rend.sprite = frames[frame % frames.Length];
 		}
 		
-		AnimState DetermineAnimState()
+		private AnimState DetermineAnimState()
 		{
-			if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
+			if (Mathf.Abs(character.Velocity.magnitude) > 0f) // if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
 			{
 				return AnimState.Running;
 			}
