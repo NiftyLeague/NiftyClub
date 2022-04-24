@@ -6,13 +6,17 @@ namespace NiftyClub.Editor
 {
 	public class SpriteSlicer : EditorWindow
 	{
-		static float threshold = 1;
-		static Vector2 pivot = new Vector2 (0.5f, 0.5f);
+		private static int gridWidth = 128;
+
+		[MenuItem ("Tools/Nifty League/Open Slicer Window")]
+		static void OpenSlicer ()
+		{
+			GetWindow (typeof (SpriteSlicer));
+		}
 
 		void OnGUI ()
 		{
-			threshold = Mathf.Clamp (EditorGUILayout.FloatField ("Threshold: ", threshold), 0, 1);
-			pivot = EditorGUILayout.Vector2Field ("Pivot: ", pivot);
+			gridWidth = EditorGUILayout.IntField ("Grid: ", gridWidth);
 
 			if (GUILayout.Button ("Slice"))
 			{
@@ -21,67 +25,76 @@ namespace NiftyClub.Editor
 
 			Repaint ();
 		}
-
-		[MenuItem ("Tools/Nifty League/Open Slicer Window")]
-		static void OpenSlicer ()
-		{
-			GetWindow (typeof (SpriteSlicer));
-		}
-
+		
 		static void Slice ()
-		{
-			Object[] spriteSheets = Selection.GetFiltered<Texture2D> (SelectionMode.Assets);
+		{        
+			Texture2D[] textures = Selection.GetFiltered<Texture2D> (SelectionMode.Assets);
 
-			for (int z = 0; z < spriteSheets.Length; z++)
+			int[] rowIndexLimits = new[]
 			{
-				string path = AssetDatabase.GetAssetPath (spriteSheets[z]);
-				TextureImporter ti = AssetImporter.GetAtPath (path) as TextureImporter;
+				0,
+				4,
+				4,
+				4,
+				4,
+				4,
+				4,
+				4,
+				8,
+				8,
+				8,
+				8,
+				8,
+				8,
+				8,
+				8,
+				8,
+				8
+			};
+			
+			foreach (Texture2D myTexture in textures)
+			{
+				string path = AssetDatabase.GetAssetPath(myTexture);
+				TextureImporter ti = AssetImporter.GetAtPath(path) as TextureImporter;
 				ti.isReadable = true;
-				AssetDatabase.ImportAsset (path, ImportAssetOptions.ForceUpdate);
-
+				AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+ 
 				if (ti.spriteImportMode != SpriteImportMode.Single)
 					ti.spriteImportMode = SpriteImportMode.Single;
-
 				ti.spriteImportMode = SpriteImportMode.Multiple;
+ 
+				List<SpriteMetaData> newData = new List<SpriteMetaData>();
+ 
+				int SliceWidth = gridWidth;
+				int SliceHeight = gridWidth;
 
-				List<SpriteMetaData> newData = new List<SpriteMetaData> ();
-
-				Texture2D spriteSheet = spriteSheets[z] as Texture2D;
-
-				int maxY = 0;
-				int maxX = 0;
-
-				int minY = spriteSheet.height;
-				int minX = spriteSheet.width;
-
-				for (int i = 0; i < spriteSheet.width; i++)
+				int rowLimit = 7,
+					columnLimit = 9;
+				for (int rowIndex = rowLimit; rowIndex >= 0; rowIndex--)
 				{
-					for (int j = spriteSheet.height; j >= 0; j--)
+					for (int columnIndex = 0; columnIndex < columnLimit; columnIndex++)
 					{
-						if (spriteSheet.GetPixel (i, j).a >= threshold && j > maxY)
-							maxY = j;
+						int i = rowIndex * SliceHeight;
+						int j = columnIndex * SliceWidth;
+						
+						SpriteMetaData smd = new SpriteMetaData();
+						smd.pivot = new Vector2(0.5f, 0.5f);
+						smd.alignment = 9;
 
-						if (spriteSheet.GetPixel (i, j).a >= threshold && j < minY)
-							minY = j;
+						int x = (myTexture.height - j) / SliceHeight,
+							y = i/SliceWidth;
+						smd.name = $"{myTexture.name}_{x * 8 + y}"; // (myTexture.height - j)/SliceHeight + ", " + i/SliceWidth;
+						smd.rect = new Rect(i, j-SliceHeight, SliceWidth, SliceHeight);
 
-						if (spriteSheet.GetPixel (i, j).a >= threshold && i > maxX)
-							maxX = i;
-
-						if (spriteSheet.GetPixel (i, j).a >= threshold && i < minX)
-							minX = i;
+						if (columnIndex > rowIndexLimits[rowIndex])
+						{
+							newData.Add(smd);
+						}
 					}
 				}
-
-				SpriteMetaData smd = new SpriteMetaData ();
-				smd.pivot = pivot;
-				smd.alignment = 9;
-				smd.name = spriteSheet.name;
-
-				smd.rect = new Rect (minX, minY, (maxX - minX) + 1, (maxY - minY) + 1);
-
-				newData.Add (smd);
-				ti.spritesheet = newData.ToArray ();
-				AssetDatabase.ImportAsset (path, ImportAssetOptions.ForceUpdate);
+ 
+				ti.spritesheet = newData.ToArray();
+				AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 			}
 		}
 	}
