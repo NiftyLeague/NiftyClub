@@ -222,6 +222,34 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""chat"",
+            ""id"": ""2475e718-0e3d-47b3-9a6a-be67a2869b0c"",
+            ""actions"": [
+                {
+                    ""name"": ""interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd1fe7dd-e25f-42aa-b43f-d503d10c8554"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1b057fe7-7a2c-447a-9bda-5359f70953ae"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -231,6 +259,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_gameplay_jump = m_gameplay.FindAction("jump", throwIfNotFound: true);
         m_gameplay_move = m_gameplay.FindAction("move", throwIfNotFound: true);
         m_gameplay_look = m_gameplay.FindAction("look", throwIfNotFound: true);
+        // chat
+        m_chat = asset.FindActionMap("chat", throwIfNotFound: true);
+        m_chat_interact = m_chat.FindAction("interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -335,10 +366,47 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @gameplay => new GameplayActions(this);
+
+    // chat
+    private readonly InputActionMap m_chat;
+    private IChatActions m_ChatActionsCallbackInterface;
+    private readonly InputAction m_chat_interact;
+    public struct ChatActions
+    {
+        private @Controls m_Wrapper;
+        public ChatActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @interact => m_Wrapper.m_chat_interact;
+        public InputActionMap Get() { return m_Wrapper.m_chat; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ChatActions set) { return set.Get(); }
+        public void SetCallbacks(IChatActions instance)
+        {
+            if (m_Wrapper.m_ChatActionsCallbackInterface != null)
+            {
+                @interact.started -= m_Wrapper.m_ChatActionsCallbackInterface.OnInteract;
+                @interact.performed -= m_Wrapper.m_ChatActionsCallbackInterface.OnInteract;
+                @interact.canceled -= m_Wrapper.m_ChatActionsCallbackInterface.OnInteract;
+            }
+            m_Wrapper.m_ChatActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @interact.started += instance.OnInteract;
+                @interact.performed += instance.OnInteract;
+                @interact.canceled += instance.OnInteract;
+            }
+        }
+    }
+    public ChatActions @chat => new ChatActions(this);
     public interface IGameplayActions
     {
         void OnJump(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+    }
+    public interface IChatActions
+    {
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

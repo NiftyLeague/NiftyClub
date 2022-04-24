@@ -200,6 +200,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "chat",
+            "id": "2475e718-0e3d-47b3-9a6a-be67a2869b0c",
+            "actions": [
+                {
+                    "name": "interact",
+                    "type": "Button",
+                    "id": "bd1fe7dd-e25f-42aa-b43f-d503d10c8554",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1b057fe7-7a2c-447a-9bda-5359f70953ae",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

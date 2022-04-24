@@ -191,15 +191,5 @@ namespace NiftyClub.Controllers
 		{
 			return Vector3.Angle (_transform.up, normal) <= _controller.slopeLimit;
 		}
-
-		Vector3 GetCapsuleBottomHemisphere ()
-		{
-			return _transform.position + (_transform.up * _controller.radius);
-		}
-
-		Vector3 GetCapsuleTopHemisphere (float atHeight)
-		{
-			return _transform.position + (_transform.up * (atHeight - _controller.radius));
-		}
 	}
 }
