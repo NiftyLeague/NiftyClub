@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &482748572742560139
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.773
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.604
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915157887174792229, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: m_Name
+      value: Local Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9646942b47e74214ca908f72b9c8a72e, type: 3}
+--- !u!114 &6432409315779214761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6915157887174792226, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6432409315779214766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6915157887174792229, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &5084605952038060631
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 0.6
+  m_Radius: 0.1
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.11, z: 0}
+--- !u!114 &1492903010401599884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 97210cd740af04df697b1fa71c9c9623,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6432409315779214761}
+        m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1077f913-a9f9-41b1-acb3-b9ee0adbc744
+    m_ActionName: gameplay/jump[/Keyboard/space,/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6432409315779214761}
+        m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 50fd2809-3aa3-4a90-988e-1facf6773553
+    m_ActionName: gameplay/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/Mouse/leftButton,/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6432409315779214761}
+        m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c60e0974-d140-4597-a40e-9862193067e9
+    m_ActionName: gameplay/look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd1fe7dd-e25f-42aa-b43f-d503d10c8554
+    m_ActionName: chat/interact[/Keyboard/enter]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

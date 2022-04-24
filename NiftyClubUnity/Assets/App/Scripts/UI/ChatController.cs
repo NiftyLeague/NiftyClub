@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DynamicBox.EventManagement;
+using NiftyClub.Domain;
 using NiftyClub.GameEvents;
 using NiftyClubPlugins.Common.Enums;
 using Sirenix.OdinInspector;
@@ -19,13 +20,16 @@ namespace NiftyClub.UI
 		[BoxGroup ("Chat Panel"), SerializeField] private TMP_InputField chatInputField;
 
 		private bool isInteracted = false;
-		private ChatMode chatMode = ChatMode.Info;
+
+		private ChatBoxModel _chatBoxModel = new ChatBoxModel ();
 
 		#region Unity Methods
 
 		void Start ()
 		{
-			TogglePanels (chatMode);
+			TogglePanels (_chatBoxModel.ChatMode);
+			
+			EventManager.Instance.Raise (new ChatBoxSetupEvent (_chatBoxModel));
 		}
 		
 		void Update ()
@@ -34,23 +38,23 @@ namespace NiftyClub.UI
 			{
 				isInteracted = false;
 
-				switch (chatMode)
+				switch (_chatBoxModel.ChatMode)
 				{
 					case ChatMode.Info:
-						chatMode = ChatMode.Input;
+						_chatBoxModel.ChatMode = ChatMode.Input;
 
 						ActivateInputField ();
 						
 						break;
 					case ChatMode.Input:
-						chatMode = ChatMode.Info;
+						_chatBoxModel.ChatMode = ChatMode.Info;
 						
 						break;
 					default:
 						throw new ArgumentOutOfRangeException ();
 				}
 				
-				TogglePanels (chatMode);
+				TogglePanels (_chatBoxModel.ChatMode);
 			}
 		}
 

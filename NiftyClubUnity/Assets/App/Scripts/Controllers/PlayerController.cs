@@ -1,4 +1,9 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using DynamicBox.EventManagement;
+using NiftyClub.Domain;
+using NiftyClub.GameEvents;
+using NiftyClubPlugins.Common.Enums;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -55,12 +60,24 @@ namespace NiftyClub.Controllers
 
 		public Vector3 Velocity => _move;
 
+		private ChatBoxModel _chatBoxModel;
+
 		#region Unity Methods
 
 		void Awake ()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
+		}
+
+		private void OnEnable ()
+		{
+			EventManager.Instance.AddListener<ChatBoxSetupEvent> (ChatBoxSetupHandler);
+		}
+
+		private void OnDisable ()
+		{
+			EventManager.Instance.RemoveListener<ChatBoxSetupEvent> (ChatBoxSetupHandler);
 		}
 
 		void Update ()
@@ -73,6 +90,15 @@ namespace NiftyClub.Controllers
 
 		#endregion
 
+		#region Event Handlers
+
+		private void ChatBoxSetupHandler (ChatBoxSetupEvent eventDetails)
+		{
+			_chatBoxModel = eventDetails.ChatBox;
+		}
+
+		#endregion
+
 		private bool ShouldProcessInput ()
 		{
 			// the cursor is unlocked when GUI is on
@@ -81,17 +107,29 @@ namespace NiftyClub.Controllers
 
 		public void OnMove (InputAction.CallbackContext context)
 		{
+			if (_chatBoxModel.ChatMode == ChatMode.Input)
+				return;
+			
 			_move = !ShouldProcessInput () ? Vector2.zero : context.ReadValue<Vector2> ();
 		}
 
 		public void OnLook (InputAction.CallbackContext context)
 		{
+			if (_chatBoxModel.ChatMode == ChatMode.Input)
+				return;
+
 			_look = ShouldProcessInput () ? context.ReadValue<Vector2> () : Vector2.zero;
 		}
 
 		public void OnJump (InputAction.CallbackContext context)
 		{
-			if (context.performed && !_isJumping && ShouldProcessInput ()) _jump = true;
+			if (_chatBoxModel.ChatMode == ChatMode.Input)
+				return;
+
+			if (context.performed && !_isJumping && ShouldProcessInput ())
+			{
+				_jump = true;
+			}
 		}
 
 		private float _lastTimeJumped = 0f;
