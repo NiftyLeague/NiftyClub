@@ -107,7 +107,7 @@ namespace NiftyClub.Controllers
 
 		public void OnMove (InputAction.CallbackContext context)
 		{
-			if (_chatBoxModel.ChatMode == ChatMode.Input)
+			if (_chatBoxModel is { ChatMode: ChatMode.Input })
 				return;
 			
 			_move = !ShouldProcessInput () ? Vector2.zero : context.ReadValue<Vector2> ();
@@ -115,7 +115,7 @@ namespace NiftyClub.Controllers
 
 		public void OnLook (InputAction.CallbackContext context)
 		{
-			if (_chatBoxModel.ChatMode == ChatMode.Input)
+			if (_chatBoxModel is { ChatMode: ChatMode.Input })
 				return;
 
 			_look = ShouldProcessInput () ? context.ReadValue<Vector2> () : Vector2.zero;
@@ -123,7 +123,7 @@ namespace NiftyClub.Controllers
 
 		public void OnJump (InputAction.CallbackContext context)
 		{
-			if (_chatBoxModel.ChatMode == ChatMode.Input)
+			if (_chatBoxModel is { ChatMode: ChatMode.Input })
 				return;
 
 			if (context.performed && !_isJumping && ShouldProcessInput ())

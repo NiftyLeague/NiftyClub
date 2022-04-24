@@ -1,0 +1,114 @@
+﻿using System.Collections.Generic;
+using DarkRift;
+using DarkRift.Client;
+using NiftyClub.Domain;
+using NiftyClub.Helpers;
+using NiftyClubPlugins.Common.Enums;
+using Sirenix.OdinInspector;
+using UnityEngine;
+
+namespace NiftyClub.Controllers
+{
+	public class MessageArchive : NetworkedScriptBase
+	{
+		[BoxGroup ("Debug"), SerializeField] private bool isDebugOn;
+		
+		private readonly List<SpawnedPlayerDatum> spawnedPlayerData = new List<SpawnedPlayerDatum> ();
+
+		private bool isSpawnedPlayersRelayed;
+
+		#region Unity Methods
+
+		protected override void Awake ()
+		{
+			base.Awake ();
+
+			networkingClient.MessageReceived += OnMessageReceived;
+		}
+
+		void OnDestroy ()
+		{
+			networkingClient.MessageReceived -= OnMessageReceived;
+		}
+
+		void Update ()
+		{
+			if (isSpawnedPlayersRelayed)
+				return;
+
+			if (!isSpawnedPlayersRelayed)
+			{
+				TryRelaySpawnedPlayers ();
+			}
+
+			if (!isSpawnedPlayersRelayed)
+				return;
+
+			Destroy (gameObject.GetComponent<DontDestroy> ());
+			Destroy (gameObject);
+		}
+
+		#endregion
+		
+		private void OnMessageReceived (object sender, MessageReceivedEventArgs e)
+		{
+			using (Message message = e.GetMessage ())
+			{
+				if (message == null)
+					return;
+
+				if (isDebugOn)
+					Debug.Log ($"[OnMessageReceived] {message.Tag}");
+
+				switch (message.Tag)
+				{
+					case Tags.SpawnPlayer:
+						using (DarkRiftReader reader = message.GetReader ())
+						{
+							Vector3 position = new Vector3 (
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle ());
+							Quaternion rotation = new Quaternion (
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle ());
+							ushort id = reader.ReadUInt16 ();
+							string nickname = new string (reader.ReadChars ());
+
+							spawnedPlayerData.Add (
+								new SpawnedPlayerDatum (
+									position,
+									rotation,
+									id,
+									nickname));
+						}
+
+						break;
+				}
+			}
+		}
+
+		private void TryRelaySpawnedPlayers ()
+		{
+			PlayerSpawner playerSpawner = FindObjectOfType<PlayerSpawner> ();
+			if (playerSpawner == null)
+				return;
+
+			isSpawnedPlayersRelayed = true;
+
+			foreach (SpawnedPlayerDatum spawnedPlayerDatum in spawnedPlayerData)
+			{
+				playerSpawner.SpawnPlayer (
+					spawnedPlayerDatum.Position,
+					spawnedPlayerDatum.Rotation,
+					spawnedPlayerDatum.ID,
+					spawnedPlayerDatum.Nickname);
+			}
+
+			if (isDebugOn)
+				Debug.Log ("[TryRelaySpawnedPlayers]");
+		}
+	}
+}

@@ -1,29 +1,44 @@
-﻿using AgarPlugin.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AgarPlugin.Domain;
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
+using NiftyClub.Controllers;
+using NiftyClub.Helpers;
+using NiftyClubPlugins.Common.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerSpawner : MonoBehaviour
+public class PlayerSpawner : NetworkedScriptBase
 {
-	[BoxGroup ("Links"), SerializeField, Tooltip ("The DarkRift client to communicate on.")]
-	private UnityClient client;
-	
-	[BoxGroup ("Links"), SerializeField, Tooltip("The network player manager.")]
+	[BoxGroup ("Links"), SerializeField]
+	private Transform parentTransform;
+
+	[BoxGroup ("Links"), SerializeField, Tooltip ("The network player manager.")]
 	private NetworkPlayerManager networkPlayerManager;
 
 	[BoxGroup ("Prefabs"), SerializeField, Tooltip ("The controllable player prefab.")]
-	private GameObject controllablePrefab;
+	private NiftyPlayer controllablePrefab;
 
 	[BoxGroup ("Prefabs"), SerializeField, Tooltip ("The network controllable player prefab.")]
-	private GameObject networkPrefab;
+	private NiftyPlayer networkPrefab;
+
+	[BoxGroup ("Debug"), SerializeField] private bool isDebugOn;
+
+	private Dictionary<ushort, NiftyPlayer> playerDictionary = new Dictionary<ushort, NiftyPlayer> ();
+	public int PlayerCount => playerDictionary.Count;
+
+	public NiftyPlayer LocalPlayer => playerDictionary.FirstOrDefault (player => player.Value.IsLocal).Value;
 
 	#region Unity Methods
 
-	void Awake ()
+	protected override void Awake ()
 	{
-		if (client == null)
+		base.Awake ();
+		
+		if (networkingClient == null)
 		{
 			Debug.LogError ("Client unassigned in PlayerSpawner.");
 			Application.Quit ();
@@ -41,76 +56,132 @@ public class PlayerSpawner : MonoBehaviour
 			Application.Quit ();
 		}
 
-		client.MessageReceived += MessageReceived;
+		networkingClient.MessageReceived += OnMessageReceived;
 	}
 
 	#endregion
 
-	private void MessageReceived(object sender, MessageReceivedEventArgs e)
+	private void OnMessageReceived (object sender, MessageReceivedEventArgs e)
 	{
-		using (Message message = e.GetMessage())
-		using (DarkRiftReader reader = message.GetReader())
+		try
 		{
-			if (message.Tag == TagsOld.SpawnPlayerTag)
+			using (Message message = e.GetMessage ())
 			{
-				if (reader.Length % 17 != 0)
-				{
-					Debug.LogWarning("Received malformed spawn packet.");
+				if (message == null)
 					return;
-				}
 
-				while (reader.Position < reader.Length)
+				switch (message.Tag)
 				{
-					ushort id = reader.ReadUInt16();
-					Vector3 position = new Vector3(reader.ReadSingle(), reader.ReadSingle());
-					float radius = reader.ReadSingle();
-					Color32 color = new Color32(
-						reader.ReadByte(), 
-						reader.ReadByte(), 
-						reader.ReadByte(),
-						255
-					);
-    
-					GameObject obj;
-					if (id == client.ID)
-					{
-						obj = Instantiate(controllablePrefab, position, Quaternion.identity) as GameObject;
+					case Tags.SpawnPlayer:
+						using (DarkRiftReader reader = message.GetReader ())
+						{
+							Vector3 position = new Vector3 (
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle ());
+							Quaternion rotation = new Quaternion (
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle ());
+							ushort id = reader.ReadUInt16 ();
+							string nickname = new string (reader.ReadChars ());
 
-						PlayerTransformSync player = obj.GetComponent<PlayerTransformSync>();
-						player.Client = client;
-					}
-					else
-					{
-						obj = Instantiate(networkPrefab, position, Quaternion.identity) as GameObject;
-					} 
+							SpawnPlayer (position, rotation, id, nickname);
+						}
 
-					AgarObject agarObj = obj.GetComponent<AgarObject>();
+						break;
+					case Tags.DespawnPlayer:
+						using (DarkRiftReader reader = message.GetReader ())
+						{
+							ushort id = reader.ReadUInt16 ();
 
-					agarObj.SetRadius(radius);
-					agarObj.SetColor(color);
-					
-					networkPlayerManager.Add(id, agarObj);
-				}
-			}
-			else if (message.Tag == TagsOld.DeSpawnPlayerTag)
-			{
-				ushort id = reader.ReadUInt16();
-				
-				if (networkPlayerManager.NetworkPlayers.ContainsKey (id))
-				{
-					networkPlayerManager.Remove (id);
-				}
-			}
-			else if (message.Tag == TagsOld.MovePlayerTag)
-			{
-				ushort id = reader.ReadUInt16();
-				Vector3 newPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), 0);
+							ThrowIfLocal (id);
 
-				if (networkPlayerManager.NetworkPlayers.ContainsKey (id))
-				{
-					networkPlayerManager.NetworkPlayers[id].SetMovePosition(newPosition);
+							DespawnPlayer (id);
+						}
+
+						break;
+					case Tags.MovePlayer:
+						using (DarkRiftReader reader = message.GetReader ())
+						{
+							if (reader.Length == 0)
+								return;
+
+							Vector3 newPosition = new Vector3 (reader.ReadSingle (), reader.ReadSingle (),
+								reader.ReadSingle ());
+							Quaternion rotation = new Quaternion (
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle (),
+								reader.ReadSingle ());
+							ushort id = reader.ReadUInt16 ();
+
+							ThrowIfLocal (id);
+
+							playerDictionary[id].SetMovePosition (newPosition, rotation);
+						}
+
+						break;
 				}
 			}
 		}
+		catch (Exception exception)
+		{
+			Debug.LogError ($"Exception: {exception}");
+			throw;
+		}
+	}
+
+	private void OnDisconnected (object sender, DisconnectedEventArgs e)
+	{
+		DespawnAllPlayers ();
+	}
+
+	public void SpawnPlayer (Vector3 position, Quaternion rotation, ushort id, string nickname)
+	{
+		bool isLocal = id == networkingClient.ID;
+		NiftyPlayer newPlayer;
+
+		if (isLocal)
+		{
+			newPlayer = Instantiate (controllablePrefab, parentTransform, false);
+			playerDictionary.Add (id, newPlayer);
+		}
+		else
+		{
+			newPlayer = Instantiate (networkPrefab, parentTransform, false);
+			playerDictionary.Add (id, newPlayer);
+		}
+
+		newPlayer.Initialize (position, rotation, id, nickname, isLocal);
+	}
+
+	private void DespawnPlayer (ushort id)
+	{
+		Destroy (playerDictionary[id].gameObject);
+		playerDictionary.Remove (id);
+	}
+
+	private void DespawnAllPlayers ()
+	{
+		foreach (NiftyPlayer player in playerDictionary.Values)
+			Destroy (player.gameObject);
+
+		playerDictionary.Clear ();
+	}
+
+	public Dictionary<ushort, NiftyPlayer> GetPlayers ()
+	{
+		if (isDebugOn)
+			Debug.Log ($"[GetPlayers] Characters count: {playerDictionary.Count}");
+
+		return playerDictionary;
+	}
+
+	private void ThrowIfLocal (ushort uid)
+	{
+		if (playerDictionary[uid].IsLocal)
+			throw new Exception ("Can't control local player");
 	}
 }

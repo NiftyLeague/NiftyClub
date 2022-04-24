@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6915157887174792226, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 5084605952038060631}
     - target: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
         type: 3}
       propertyPath: m_RootOrder
@@ -65,10 +70,16 @@ PrefabInstance:
     - target: {fileID: 6915157887174792229, guid: 9646942b47e74214ca908f72b9c8a72e,
         type: 3}
       propertyPath: m_Name
-      value: Local Player
+      value: Local Networked Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9646942b47e74214ca908f72b9c8a72e, type: 3}
+--- !u!4 &6432409315744946203 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6915157887073497488, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6432409315779214761 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6915157887174792226, guid: 9646942b47e74214ca908f72b9c8a72e,
@@ -188,3 +199,16 @@ MonoBehaviour:
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4636372055076124726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fff4301f2449088fbe7865cb2691a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 6432409315744946203}
