@@ -39,17 +39,7 @@ namespace NiftyClub.Editor
 				4,
 				4,
 				4,
-				4,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8
+				4
 			};
 			
 			foreach (Texture2D myTexture in textures)
@@ -83,7 +73,7 @@ namespace NiftyClub.Editor
 
 						int x = (myTexture.height - j) / SliceHeight,
 							y = i/SliceWidth;
-						smd.name = $"{myTexture.name}_{x * 8 + y}"; // (myTexture.height - j)/SliceHeight + ", " + i/SliceWidth;
+						smd.name = $"{myTexture.name}_{x * 8 + y}";
 						smd.rect = new Rect(i, j-SliceHeight, SliceWidth, SliceHeight);
 
 						if (columnIndex > rowIndexLimits[rowIndex])
