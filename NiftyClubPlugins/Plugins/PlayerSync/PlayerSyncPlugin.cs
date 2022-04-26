@@ -16,7 +16,7 @@ namespace NiftyClubPlugins.Plugins.PlayerSync
 	class PlayerSyncPlugin : Plugin
 	{
 		public override bool ThreadSafe => true;
-		public override Version Version => new Version (0, 1, 1);
+		public override Version Version => new Version (0, 2, 0);
 
 		private ConcurrentDictionary<IClient, Player> onlinePlayers = new ConcurrentDictionary<IClient, Player> ();
 

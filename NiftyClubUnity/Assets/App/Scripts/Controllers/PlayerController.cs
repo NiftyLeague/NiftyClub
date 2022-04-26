@@ -11,6 +11,7 @@ namespace NiftyClub.Controllers
 {
 	public class PlayerController : MonoBehaviour
 	{
+		[SerializeField] private NiftyPlayer niftyPlayer;
 		[SerializeField] private Transform groundRaycastPoint;
 		
 		[Tooltip ("Rotation speed multiplier"), Range (2.0f, 12.0f), SerializeField]
@@ -82,6 +83,9 @@ namespace NiftyClub.Controllers
 
 		void Update ()
 		{
+			if (!niftyPlayer.IsLocal)
+				return;
+			
 			Look (_look);
 
 			GroundCheck ();

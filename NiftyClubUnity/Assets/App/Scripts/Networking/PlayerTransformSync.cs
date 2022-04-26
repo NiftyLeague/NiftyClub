@@ -4,13 +4,14 @@ using System.Globalization;
 using DarkRift;
 using DarkRift.Client.Unity;
 using NiftyClub.Controllers;
+using NiftyClub.Helpers;
 using NiftyClub.Networking.Domain;
 using NiftyClubPlugins.Common.Enums;
 using UnityEngine;
 
 namespace NiftyClub.Networking
 {
-	public class PlayerTransformSync : MonoBehaviour
+	public class PlayerTransformSync : NetworkedScriptBase
 	{
 		[Header ("Parameters")]
 		[SerializeField] private float recordPeriod;
@@ -23,9 +24,6 @@ namespace NiftyClub.Networking
 		[SerializeField] private float deltaAngle;
 
 		[Header ("Links")]
-		[SerializeField] private UnityClient networkingClient;
-		
-		[Space]
 		[SerializeField] private Transform targetTransform;
 
 		[Header ("Debug")]
@@ -49,8 +47,6 @@ namespace NiftyClub.Networking
 
 		void Start ()
 		{
-			networkingClient = FindObjectOfType<UnityClient> ();
-
 			createTime = Time.time;
 			
 			if (CheckTransformInPrefs ())

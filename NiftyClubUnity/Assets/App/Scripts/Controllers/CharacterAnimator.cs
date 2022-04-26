@@ -13,8 +13,8 @@ namespace NiftyClub.Controllers
 		[BoxGroup ("Links"), SerializeField] private PlayerController character;
 		
 		[BoxGroup ("Dynamic Load"), SerializeField] private bool isDynamicallyLoaded;
-		[BoxGroup ("Dynamic Load"), SerializeField] private AssetReference[] spriteSheetRefs;
 		[BoxGroup ("Dynamic Load"), SerializeField] private int loadedSheetIndex;
+		[BoxGroup ("Dynamic Load"), SerializeField] private AssetReference[] spriteSheetRefs;
 		[BoxGroup ("Dynamic Load"), SerializeField] private Sprite[] spriteSheet;
 		
 		[BoxGroup ("Sprites"), SerializeField] private Sprite[] idleRight;
@@ -39,13 +39,50 @@ namespace NiftyClub.Controllers
 		private RunDirection lastRunDirection = RunDirection.Down;
 
 		#region Unity Methods
-
+		
 		void Start ()
 		{
 			if (!isDynamicallyLoaded)
 				return;
+
+			SetCharacter (loadedSheetIndex);
+		}
+		
+		void Update ()
+		{
+			t = Time.deltaTime;
+		}
+		
+		void LateUpdate ()
+		{
+			var newAnimState = DetermineAnimState();
 			
-			AssetReference spriteSheetRef = spriteSheetRefs[loadedSheetIndex];
+			if (animState != newAnimState)
+			{
+				frame = 0;
+				frameCounter = 0f;
+			}
+
+			animState = newAnimState;
+			
+			switch (animState)
+			{
+				case AnimState.Idle:
+					AnimateIdle ();
+					
+					break;
+				case AnimState.Running:
+					AnimateRun (GetRunDirection (character.Velocity));
+					
+					break;
+			}
+		}
+
+		#endregion
+
+		public void SetCharacter (int characterIndex)
+		{
+			AssetReference spriteSheetRef = spriteSheetRefs[characterIndex];
 			Addressables.LoadAssetAsync<Sprite[]> (spriteSheetRef).Completed += handle =>
 			{
 				spriteSheet = handle.Result;
@@ -86,38 +123,6 @@ namespace NiftyClub.Controllers
 			
 			AnimateIdle ();
 		}
-		
-		void Update ()
-		{
-			t = Time.deltaTime;
-		}
-		
-		void LateUpdate ()
-		{
-			var newAnimState = DetermineAnimState();
-			
-			if (animState != newAnimState)
-			{
-				frame = 0;
-				frameCounter = 0f;
-			}
-
-			animState = newAnimState;
-			
-			switch (animState)
-			{
-				case AnimState.Idle:
-					AnimateIdle ();
-					
-					break;
-				case AnimState.Running:
-					AnimateRun (GetRunDirection (character.Velocity));
-					
-					break;
-			}
-		}
-
-		#endregion
 		
 		private void AnimateIdle()
 		{

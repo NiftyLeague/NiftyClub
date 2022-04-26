@@ -13,7 +13,8 @@ namespace NiftyClub.Controllers
 
 		[BoxGroup ("Links"), SerializeField] private Transform targetTransform;
 		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI nameText;
-		
+		[BoxGroup ("Links"), SerializeField] private CharacterAnimator characterAnimator;
+
 		private ushort _id;
 		public ushort ID => _id;
 
@@ -54,14 +55,16 @@ namespace NiftyClub.Controllers
 
 		#endregion
 		
-		public void Initialize (Vector3 position, Quaternion rotation, ushort id, string nickname, bool isLocal)
+		public void Initialize (
+			Vector3 position,
+			Quaternion rotation,
+			ushort id,
+			string nickname,
+			bool isLocal,
+			byte characterIndex)
 		{
 			newPosition = targetTransform.localPosition = position;
-
-			if (isLocal)
-				newRotation = targetTransform.rotation = new Quaternion (rotation.x, -0.9063078f, rotation.z, 0.4226183f);
-			else
-				newRotation = targetTransform.rotation = new Quaternion (rotation.x, rotation.y, rotation.z, rotation.w);
+			newRotation = targetTransform.rotation = new Quaternion (rotation.x, rotation.y, rotation.z, rotation.w);
 
 			_id = id;
 			_nickname = nickname;
@@ -69,20 +72,13 @@ namespace NiftyClub.Controllers
 
 			nameText.text = nickname;
 
-			/* if (nameText != null)
-			{
-				// split on first comma
-				var (basename, supplementary_name) = PlayerNameInputField.nameSplit(nickname);
-
-				nameText.text = basename;
-				nametag.SetTagText(supplementary_name);
-			} */
-
 			isInitialized = true;
 
 			OnInitialized?.Invoke (this, _isLocal);
 
 			SetPositionAsync (position);
+			
+			characterAnimator.SetCharacter (characterIndex);
 		}
 
 		private async Task SetPositionAsync (Vector3 position)

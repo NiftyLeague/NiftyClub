@@ -76,13 +76,15 @@ namespace NiftyClub.Controllers
 								reader.ReadSingle ());
 							ushort id = reader.ReadUInt16 ();
 							string nickname = new string (reader.ReadChars ());
+							byte characterIndex = reader.ReadByte ();
 
 							spawnedPlayerData.Add (
 								new SpawnedPlayerDatum (
 									position,
 									rotation,
 									id,
-									nickname));
+									nickname,
+									characterIndex));
 						}
 
 						break;
@@ -104,7 +106,8 @@ namespace NiftyClub.Controllers
 					spawnedPlayerDatum.Position,
 					spawnedPlayerDatum.Rotation,
 					spawnedPlayerDatum.ID,
-					spawnedPlayerDatum.Nickname);
+					spawnedPlayerDatum.Nickname,
+					spawnedPlayerDatum.CharacterIndex);
 			}
 
 			if (isDebugOn)

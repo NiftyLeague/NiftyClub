@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DarkRift;
 using DarkRift.Client;
 using NiftyClub.Helpers;
@@ -36,6 +37,11 @@ namespace NiftyClub.Controllers
 		void Start ()
 		{
 			PopulateCharacters ();
+
+			if (PlayerPrefs.HasKey (loggedInNicknamePref))
+			{
+				usernameInputField.text = PlayerPrefs.GetString (loggedInNicknamePref);
+			}
 		}
 
 		void OnDestroy ()
@@ -73,16 +79,17 @@ namespace NiftyClub.Controllers
 			if (string.IsNullOrEmpty (usernameInputField.text))
 				return;
 			
-			JoinRoom (DEFAULT_ROOM_NAME, usernameInputField.text);
+			JoinRoom (DEFAULT_ROOM_NAME, usernameInputField.text, (byte) characterDropdown.value);
 		}
 		
-		private void JoinRoom (string roomName, string nickname)
+		private void JoinRoom (string roomName, string nickname, byte characterIndex)
 		{
 			using (DarkRiftWriter writer = DarkRiftWriter.Create ())
 			{
 				writer.Write (roomName);
 				writer.Write (SystemInfo.deviceUniqueIdentifier);
 				writer.Write (nickname);
+				writer.Write (characterIndex);
 
 				using (Message message = Message.Create (Tags.JoinRoom, writer))
 				{
@@ -94,9 +101,11 @@ namespace NiftyClub.Controllers
 			}
 		}
 
+		private List<TMP_Dropdown.OptionData> options;
+		
 		private void PopulateCharacters ()
 		{
-			List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData> ();
+			options = new List<TMP_Dropdown.OptionData> ();
 			for (int characterIndex = 0; characterIndex < 100; characterIndex++)
 			{
 				TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData ($"Character #{characterIndex}");

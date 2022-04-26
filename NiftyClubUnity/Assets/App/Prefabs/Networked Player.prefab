@@ -691,6 +691,7 @@ MonoBehaviour:
   rotateLerpSpeed: 50
   targetTransform: {fileID: 6915157887174792228}
   nameText: {fileID: 7686098098780514718}
+  characterAnimator: {fileID: 6915157887174792285}
 --- !u!114 &8444572611247529296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +710,6 @@ MonoBehaviour:
   deltaDistance: 0.1
   deltaLookDistance: 0
   deltaAngle: 1
-  networkingClient: {fileID: 0}
   targetTransform: {fileID: 6915157887174792228}
   isDebugOn: 0
 --- !u!114 &6915157887174792226
@@ -724,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  niftyPlayer: {fileID: 6240137802802801688}
   groundRaycastPoint: {fileID: 6915157886214713549}
   rotateSpeed: 12
   maxSpeedOnGround: 5
@@ -750,6 +751,7 @@ MonoBehaviour:
   rend: {fileID: 6915157886552824791}
   character: {fileID: 6915157887174792226}
   isDynamicallyLoaded: 1
+  loadedSheetIndex: 65
   spriteSheetRefs:
   - m_AssetGUID: a4f5a4c785d3b0d48b5a0779e964120c
     m_SubObjectName: 
@@ -1147,7 +1149,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  loadedSheetIndex: 65
   spriteSheet: []
   idleRight:
   - {fileID: 1885008759, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}

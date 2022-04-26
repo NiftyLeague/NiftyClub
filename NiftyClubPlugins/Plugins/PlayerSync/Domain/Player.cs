@@ -11,13 +11,14 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
 		public string Nickname { get; set; }
 		public string DeviceID { get; }
 		public string RoomName { get; protected set; }
+		public byte CharacterIndex { get; protected set; }
 
 		public Player ()
 		{
 			// do nothing
 		}
 
-		public Player (Vector3 position, Quaternion rotation, ushort ID, string nickname, string deviceId, string roomName)
+		public Player (Vector3 position, Quaternion rotation, ushort ID, string nickname, string deviceId, string roomName, byte characterIndex)
 		{
 			Position = position;
 			Rotation = rotation;
@@ -25,6 +26,7 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
 			Nickname = nickname;
 			DeviceID = deviceId;
 			RoomName = roomName;
+			CharacterIndex = characterIndex;
 		}
 
 		public void Deserialize (DeserializeEvent e)
@@ -33,6 +35,7 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
 			Rotation = e.Reader.ReadSerializable<Quaternion> ();
 			ID = e.Reader.ReadUInt16 ();
 			Nickname = new string (e.Reader.ReadChars ());
+			CharacterIndex = e.Reader.ReadByte ();
 		}
 
 		public void Serialize (SerializeEvent e)
@@ -41,6 +44,7 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
 			e.Writer.Write (Rotation);
 			e.Writer.Write (ID);
 			e.Writer.Write (Nickname);
+			e.Writer.Write (CharacterIndex);
 		}
 
 		public void UpdatePositionAndRotation (PlayerEntry playerEntry)

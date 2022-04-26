@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AgarPlugin.Domain;
 using DarkRift;
 using DarkRift.Client;
-using DarkRift.Client.Unity;
 using NiftyClub.Controllers;
 using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
@@ -86,8 +84,9 @@ public class PlayerSpawner : NetworkedScriptBase
 								reader.ReadSingle ());
 							ushort id = reader.ReadUInt16 ();
 							string nickname = new string (reader.ReadChars ());
+							byte characterIndex = reader.ReadByte ();
 
-							SpawnPlayer (position, rotation, id, nickname);
+							SpawnPlayer (position, rotation, id, nickname, characterIndex);
 						}
 
 						break;
@@ -138,7 +137,7 @@ public class PlayerSpawner : NetworkedScriptBase
 		DespawnAllPlayers ();
 	}
 
-	public void SpawnPlayer (Vector3 position, Quaternion rotation, ushort id, string nickname)
+	public void SpawnPlayer (Vector3 position, Quaternion rotation, ushort id, string nickname, byte characterIndex)
 	{
 		bool isLocal = id == networkingClient.ID;
 		NiftyPlayer newPlayer;
@@ -154,7 +153,7 @@ public class PlayerSpawner : NetworkedScriptBase
 			playerDictionary.Add (id, newPlayer);
 		}
 
-		newPlayer.Initialize (position, rotation, id, nickname, isLocal);
+		newPlayer.Initialize (position, rotation, id, nickname, isLocal, characterIndex);
 	}
 
 	private void DespawnPlayer (ushort id)
