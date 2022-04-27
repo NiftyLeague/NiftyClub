@@ -16,5 +16,7 @@
 
 		public const ushort LookPosition = 300;
 		public const ushort Jump = 301;
+
+		public const ushort ChatReceived = 400;
 	}
 }

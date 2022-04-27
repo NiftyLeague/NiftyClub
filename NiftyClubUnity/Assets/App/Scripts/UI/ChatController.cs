@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DynamicBox.EventManagement;
 using NiftyClub.Domain;
 using NiftyClub.GameEvents;
+using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -12,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace NiftyClub.UI
 {
-	public class ChatController : MonoBehaviour
+	public class ChatController : NetworkedScriptBase
 	{
 		[BoxGroup ("Info Panel"), SerializeField] private GameObject infoParentPanel;
 		
@@ -87,7 +88,7 @@ namespace NiftyClub.UI
 
 		public void OnSubmit (string inputFieldText)
 		{
-			EventManager.Instance.Raise (new ChatSubmitEvent (inputFieldText));
+			EventManager.Instance.Raise (new ChatSubmitEvent (networkingClient.ID, inputFieldText));
 			// Debug.Log ($"Text: {inputFieldText}");
 			
 			chatInputField.text = string.Empty;

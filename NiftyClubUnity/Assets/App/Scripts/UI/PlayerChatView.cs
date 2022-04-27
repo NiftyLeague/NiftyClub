@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DynamicBox.EventManagement;
+using NiftyClub.Controllers;
 using NiftyClub.GameEvents;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -10,6 +11,8 @@ namespace NiftyClub.UI
 {
 	public class PlayerChatView : MonoBehaviour
 	{
+		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
+		
 		[BoxGroup ("Links"), SerializeField] private GameObject chatParent;
 		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI chatText;
 		
@@ -38,6 +41,9 @@ namespace NiftyClub.UI
 		{
 			try
 			{
+				if (niftyPlayer.ID != eventDetails.ID)
+					return;
+				
 				chatText.text = eventDetails.ChatText;
 				chatParent.SetActive (true);
 

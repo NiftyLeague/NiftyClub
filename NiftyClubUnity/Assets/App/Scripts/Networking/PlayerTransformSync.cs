@@ -15,11 +15,13 @@ namespace NiftyClub.Networking
 	{
 		[Header ("Parameters")]
 		[SerializeField] private float recordPeriod;
+
 		[SerializeField] private float notRecordingPeriod;
 		[SerializeField] private float comeBackLivePeriod;
 
 		[Space]
 		[SerializeField] private float deltaDistance;
+
 		[SerializeField] private float deltaLookDistance;
 		[SerializeField] private float deltaAngle;
 
@@ -32,7 +34,7 @@ namespace NiftyClub.Networking
 		private const string playerPositionString = "playerPositionPrefString";
 		private const string playerRotationString = "playerRotationPrefString";
 		private const string timestampString = "timestampPrefString";
-		
+
 		private const string loggedInRoomNamePref = "loggedInRoomName";
 		private const string recordedRoomNameString = "recordedRoomNameString";
 		private string loggedInRoomName;
@@ -42,13 +44,13 @@ namespace NiftyClub.Networking
 		private Vector3 lastRecordedPosition;
 		private Vector3 lastRecordedLookPosition;
 		private Quaternion lastRecordedRotation;
-		
+
 		#region Unity Methods
 
 		void Start ()
 		{
 			createTime = Time.time;
-			
+
 			if (CheckTransformInPrefs ())
 			{
 				if (isDebugOn)
@@ -58,20 +60,20 @@ namespace NiftyClub.Networking
 				StartCoroutine (ResetTransformFromPrefs ());
 			}
 		}
-		
+
 		void Update ()
 		{
 			if (networkingClient == null)
 				return;
-			
+
 			if (IsMovementSignificant ())
 			{
 				SyncPlayerTransform ();
 			}
-			
+
 			if (Time.time < lastRecordTime + recordPeriod || Time.time < createTime + notRecordingPeriod)
 				return;
-			
+
 			lastRecordTime = Time.time;
 			RecordTransformToPrefs ();
 		}
@@ -82,18 +84,18 @@ namespace NiftyClub.Networking
 		{
 			Vector3 position = targetTransform.position;
 			Quaternion rotation = targetTransform.rotation;
-			
+
 			PlayerPrefs.SetFloat ($"{playerPositionString}X", position.x);
 			PlayerPrefs.SetFloat ($"{playerPositionString}Y", position.y);
 			PlayerPrefs.SetFloat ($"{playerPositionString}Z", position.z);
-			
+
 			PlayerPrefs.SetFloat ($"{playerRotationString}W", rotation.w);
 			PlayerPrefs.SetFloat ($"{playerRotationString}X", rotation.x);
 			PlayerPrefs.SetFloat ($"{playerRotationString}Y", rotation.y);
 			PlayerPrefs.SetFloat ($"{playerRotationString}Z", rotation.z);
-			
+
 			PlayerPrefs.SetString (timestampString, DateTime.Now.ToString (CultureInfo.InvariantCulture));
-			
+
 			PlayerPrefs.SetString (recordedRoomNameString, loggedInRoomName);
 		}
 
@@ -101,7 +103,7 @@ namespace NiftyClub.Networking
 		{
 			if (!PlayerPrefs.HasKey (timestampString) || !PlayerPrefs.HasKey (recordedRoomNameString))
 				return false;
-			
+
 			string recordedRoomName = PlayerPrefs.GetString (recordedRoomNameString);
 			loggedInRoomName = PlayerPrefs.GetString (loggedInRoomNamePref);
 
@@ -119,9 +121,9 @@ namespace NiftyClub.Networking
 		private IEnumerator ResetTransformFromPrefs ()
 		{
 			yield return null;
-			
-			CharacterController controller = GetComponent<CharacterController>();
-			PlayerController pController = GetComponent<PlayerController>();
+
+			CharacterController controller = GetComponent<CharacterController> ();
+			PlayerController pController = GetComponent<PlayerController> ();
 			controller.enabled = false;
 			pController.enabled = false;
 
@@ -137,7 +139,7 @@ namespace NiftyClub.Networking
 				PlayerPrefs.GetFloat ($"{playerRotationString}Z"),
 				PlayerPrefs.GetFloat ($"{playerRotationString}W"));
 			targetTransform.rotation = oldRotation;
-			
+
 			controller.enabled = true;
 			pController.enabled = true;
 		}
@@ -157,17 +159,17 @@ namespace NiftyClub.Networking
 		{
 			lastRecordedPosition = targetTransform.position;
 			lastRecordedRotation = targetTransform.rotation;
-			
+
 			DarkRiftWriter writer = DarkRiftWriter.Create ();
 
 			PlayerTransform playerTransform = new PlayerTransform (
 				lastRecordedPosition,
 				lastRecordedRotation);
 			writer.Write (playerTransform);
-			
+
 			Message message = Message.Create (Tags.MovePlayer, writer);
 			networkingClient.SendMessage (message, SendMode.Unreliable);
-			
+
 			if (isDebugOn)
 				Debug.Log ("Synced Player Transform");
 		}
@@ -175,24 +177,24 @@ namespace NiftyClub.Networking
 		public void LookPositionSync (Vector3 lookPosition, float lookWeight)
 		{
 			bool isDeltaLookPositionSignificant =
-				Vector3.Distance(lookPosition, lastRecordedLookPosition) > deltaLookDistance;
+				Vector3.Distance (lookPosition, lastRecordedLookPosition) > deltaLookDistance;
 
 			if (isDeltaLookPositionSignificant)
 			{
-				DarkRiftWriter writer = DarkRiftWriter.Create();
+				DarkRiftWriter writer = DarkRiftWriter.Create ();
 
-				writer.Write(lookPosition.x);
-				writer.Write(lookPosition.y);
-				writer.Write(lookPosition.z);
-				writer.Write((double)lookWeight);
+				writer.Write (lookPosition.x);
+				writer.Write (lookPosition.y);
+				writer.Write (lookPosition.z);
+				writer.Write ((double) lookWeight);
 
-				Message message = Message.Create(Tags.LookPosition, writer);
-				networkingClient.SendMessage(message, SendMode.Unreliable);
+				Message message = Message.Create (Tags.LookPosition, writer);
+				networkingClient.SendMessage (message, SendMode.Unreliable);
 
 				lastRecordedLookPosition = lookPosition;
 
 				if (isDebugOn)
-					Debug.Log("Synced look position.");
+					Debug.Log ("Synced look position.");
 			}
 		}
 

@@ -3016,7 +3016,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &78911861
 PrefabInstance:
@@ -8897,7 +8897,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentTransform: {fileID: 78022693}
-  networkPlayerManager: {fileID: 0}
   controllablePrefab: {fileID: 5776566919459603859, guid: 50612947ef320bd44bbd114871398037,
     type: 3}
   networkPrefab: {fileID: 6240137802802801688, guid: 9646942b47e74214ca908f72b9c8a72e,
@@ -12811,7 +12810,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &372921243
 PrefabInstance:
@@ -45314,7 +45313,6 @@ MonoBehaviour:
   deltaDistance: 0.1
   deltaLookDistance: 0
   deltaAngle: 1
-  networkingClient: {fileID: 0}
   targetTransform: {fileID: 1504794375}
   isDebugOn: 0
 --- !u!114 &1504794368
@@ -45329,6 +45327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739717171fb24eabb209d798170ffbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  niftyPlayer: {fileID: 0}
   chatParent: {fileID: 822852544}
   chatText: {fileID: 741944453}
 --- !u!114 &1504794369
@@ -45447,6 +45446,7 @@ MonoBehaviour:
   rend: {fileID: 1802357092}
   character: {fileID: 1504794372}
   isDynamicallyLoaded: 1
+  loadedSheetIndex: 65
   spriteSheetRefs:
   - m_AssetGUID: a4f5a4c785d3b0d48b5a0779e964120c
     m_SubObjectName: 
@@ -45844,7 +45844,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  loadedSheetIndex: 65
   spriteSheet: []
   idleRight:
   - {fileID: 1885008759, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
@@ -45902,6 +45901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  niftyPlayer: {fileID: 0}
   groundRaycastPoint: {fileID: 1368396128}
   rotateSpeed: 12
   maxSpeedOnGround: 5
@@ -45979,7 +45979,7 @@ Transform:
   - {fileID: 1802357090}
   - {fileID: 1368396128}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1508153160
 PrefabInstance:
@@ -52042,6 +52042,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1706337538}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1708895137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708895139}
+  - component: {fileID: 1708895138}
+  m_Layer: 0
+  m_Name: Chat Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1708895138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708895137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248120343e2b4c80af43bb99daca1dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1708895139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708895137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1708902841
 PrefabInstance:
   m_ObjectHideFlags: 0

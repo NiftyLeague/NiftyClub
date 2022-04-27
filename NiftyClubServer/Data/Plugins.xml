@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugins nextID="14">
+<plugins nextID="15">
   <plugin id="0" name="HelpCommand" version="1.0.0" />
   <plugin id="1" name="PluginController" version="1.0.0" />
   <plugin id="2" name="Sniffer" version="1.0.0" />
@@ -14,4 +14,5 @@
   <plugin id="11" name="AgarPlayerManager" version="1.0.3" />
   <plugin id="12" name="RoomSyncPlugin" version="0.2.0" />
   <plugin id="13" name="PlayerSyncPlugin" version="0.2.0" />
+  <plugin id="14" name="ChatSyncPlugin" version="0.1.0" />
 </plugins>

@@ -1206,6 +1206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739717171fb24eabb209d798170ffbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  niftyPlayer: {fileID: 6240137802802801688}
   chatParent: {fileID: 6915157887177183789}
   chatText: {fileID: 6915157886274369238}
 --- !u!1 &6915157887177183789

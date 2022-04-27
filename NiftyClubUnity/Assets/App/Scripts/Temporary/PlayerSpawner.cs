@@ -14,9 +14,6 @@ public class PlayerSpawner : NetworkedScriptBase
 	[BoxGroup ("Links"), SerializeField]
 	private Transform parentTransform;
 
-	[BoxGroup ("Links"), SerializeField, Tooltip ("The network player manager.")]
-	private NetworkPlayerManager networkPlayerManager;
-
 	[BoxGroup ("Prefabs"), SerializeField, Tooltip ("The controllable player prefab.")]
 	private NiftyPlayer controllablePrefab;
 
