@@ -90,7 +90,7 @@ namespace NiftyClub.Controllers
 
 		private int ParseSpriteIndex (string spriteName)
 		{
-			int index = spriteName.IndexOf ("_");
+			int index = spriteName.IndexOf ("_", StringComparison.Ordinal);
 			string numberString = spriteName.Substring (index + 1);
 			int.TryParse (numberString, out int number);
 
@@ -247,8 +247,8 @@ namespace NiftyClub.Controllers
 
 		private AnimState DetermineAnimState ()
 		{
-			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) >
-			    0f) // if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
+			// if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
+			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) > 0f)
 			{
 				return AnimState.Running;
 			}
