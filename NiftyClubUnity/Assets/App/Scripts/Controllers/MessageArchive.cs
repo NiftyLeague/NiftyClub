@@ -69,11 +69,6 @@ namespace NiftyClub.Controllers
 								reader.ReadSingle (),
 								reader.ReadSingle (),
 								reader.ReadSingle ());
-							Quaternion rotation = new Quaternion (
-								reader.ReadSingle (),
-								reader.ReadSingle (),
-								reader.ReadSingle (),
-								reader.ReadSingle ());
 							ushort id = reader.ReadUInt16 ();
 							string nickname = new string (reader.ReadChars ());
 							byte characterIndex = reader.ReadByte ();
@@ -81,7 +76,6 @@ namespace NiftyClub.Controllers
 							spawnedPlayerData.Add (
 								new SpawnedPlayerDatum (
 									position,
-									rotation,
 									id,
 									nickname,
 									characterIndex));
@@ -104,7 +98,6 @@ namespace NiftyClub.Controllers
 			{
 				playerSpawner.SpawnPlayer (
 					spawnedPlayerDatum.Position,
-					spawnedPlayerDatum.Rotation,
 					spawnedPlayerDatum.ID,
 					spawnedPlayerDatum.Nickname,
 					spawnedPlayerDatum.CharacterIndex);

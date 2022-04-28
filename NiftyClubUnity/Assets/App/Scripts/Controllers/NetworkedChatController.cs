@@ -41,7 +41,7 @@ namespace NiftyClub.Controllers
 			{
 				writer.Write (eventDetails.ChatText);
 
-				Message message = Message.Create(Tags.LookPosition, writer);
+				Message message = Message.Create(Tags.ChatReceived, writer);
 				networkingClient.SendMessage(message, SendMode.Unreliable);
 			}
 		}

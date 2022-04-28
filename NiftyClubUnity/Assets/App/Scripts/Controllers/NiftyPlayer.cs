@@ -9,9 +9,9 @@ namespace NiftyClub.Controllers
 	public class NiftyPlayer : MonoBehaviour
 	{
 		[BoxGroup ("Parameters"), SerializeField] private float moveLerpSpeed = 10f;
-		[BoxGroup ("Parameters"), SerializeField] private float rotateLerpSpeed = 50f;
 
 		[BoxGroup ("Links"), SerializeField] private Transform targetTransform;
+		[BoxGroup ("Links"), SerializeField] private PlayerController playerController;
 		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI nameText;
 		[BoxGroup ("Links"), SerializeField] private CharacterAnimator characterAnimator;
 
@@ -26,14 +26,16 @@ namespace NiftyClub.Controllers
 
 		private Vector3 oldPosition;
 		private Vector3 newPosition;
-		private Quaternion newRotation;
 
 		private bool isInitialized;
 
 		public event EventHandler<bool> OnInitialized;
 		
 		private float time;
-		
+
+		public Vector3 Velocity => playerController != null ? playerController.Velocity : GetVelocityVector ();
+		public bool OnGround => playerController != null ? playerController.OnGround : true;
+
 		#region Unity Methods
 
 		void Update ()
@@ -42,29 +44,29 @@ namespace NiftyClub.Controllers
 				return;
 
 			targetTransform.position = Vector3.Lerp (targetTransform.position, newPosition, Time.deltaTime * moveLerpSpeed);
-
-			// TODO: Use Quaternion math instead
-			Quaternion oldRotation = targetTransform.rotation;
-			targetTransform.rotation = new Quaternion (
-				Mathf.LerpAngle (oldRotation.x, newRotation.x, Time.deltaTime * rotateLerpSpeed),
-				Mathf.LerpAngle (oldRotation.y, newRotation.y, Time.deltaTime * rotateLerpSpeed),
-				Mathf.LerpAngle (oldRotation.z, newRotation.z, Time.deltaTime * rotateLerpSpeed),
-				Mathf.LerpAngle (oldRotation.w, newRotation.w, Time.deltaTime * rotateLerpSpeed)
-			);
 		}
 
 		#endregion
+
+		private Vector3 GetVelocityVector ()
+		{
+			Vector3 deltaVector = newPosition - targetTransform.position;
+			if (deltaVector.magnitude > moveLerpSpeed)
+			{
+				deltaVector = deltaVector.normalized * moveLerpSpeed;
+			}
+
+			return deltaVector;
+		}
 		
 		public void Initialize (
 			Vector3 position,
-			Quaternion rotation,
 			ushort id,
 			string nickname,
 			bool isLocal,
 			byte characterIndex)
 		{
 			newPosition = targetTransform.localPosition = position;
-			newRotation = targetTransform.rotation = new Quaternion (rotation.x, rotation.y, rotation.z, rotation.w);
 
 			_id = id;
 			_nickname = nickname;
@@ -88,17 +90,12 @@ namespace NiftyClub.Controllers
 			newPosition = targetTransform.localPosition = position;
 		}
 
-		public void SetMovePosition (Vector3 position, Quaternion rotation)
+		public void SetMovePosition (Vector3 position)
 		{
 			time = Time.time;
+			
 			oldPosition = newPosition;
 			newPosition = position;
-			newRotation = rotation;
-		}
-
-		public Vector3 GetPosition ()
-		{
-			return targetTransform.position;
 		}
 	}
 }

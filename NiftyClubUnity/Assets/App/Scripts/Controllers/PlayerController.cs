@@ -59,7 +59,11 @@ namespace NiftyClub.Controllers
 
 		public bool OnGround => isGrounded;
 
-		public Vector3 Velocity => _move;
+		public Vector3 Velocity
+		{
+			get => _move;
+			set => _move = value;
+		}
 
 		private ChatBoxModel _chatBoxModel;
 

@@ -22,9 +22,6 @@ namespace NiftyClub.Networking
 		[Space]
 		[SerializeField] private float deltaDistance;
 
-		[SerializeField] private float deltaLookDistance;
-		[SerializeField] private float deltaAngle;
-
 		[Header ("Links")]
 		[SerializeField] private Transform targetTransform;
 
@@ -32,7 +29,6 @@ namespace NiftyClub.Networking
 		[SerializeField] private bool isDebugOn;
 
 		private const string playerPositionString = "playerPositionPrefString";
-		private const string playerRotationString = "playerRotationPrefString";
 		private const string timestampString = "timestampPrefString";
 
 		private const string loggedInRoomNamePref = "loggedInRoomName";
@@ -42,8 +38,6 @@ namespace NiftyClub.Networking
 		private float createTime;
 		private float lastRecordTime;
 		private Vector3 lastRecordedPosition;
-		private Vector3 lastRecordedLookPosition;
-		private Quaternion lastRecordedRotation;
 
 		#region Unity Methods
 
@@ -83,16 +77,10 @@ namespace NiftyClub.Networking
 		private void RecordTransformToPrefs ()
 		{
 			Vector3 position = targetTransform.position;
-			Quaternion rotation = targetTransform.rotation;
 
 			PlayerPrefs.SetFloat ($"{playerPositionString}X", position.x);
 			PlayerPrefs.SetFloat ($"{playerPositionString}Y", position.y);
 			PlayerPrefs.SetFloat ($"{playerPositionString}Z", position.z);
-
-			PlayerPrefs.SetFloat ($"{playerRotationString}W", rotation.w);
-			PlayerPrefs.SetFloat ($"{playerRotationString}X", rotation.x);
-			PlayerPrefs.SetFloat ($"{playerRotationString}Y", rotation.y);
-			PlayerPrefs.SetFloat ($"{playerRotationString}Z", rotation.z);
 
 			PlayerPrefs.SetString (timestampString, DateTime.Now.ToString (CultureInfo.InvariantCulture));
 
@@ -114,7 +102,6 @@ namespace NiftyClub.Networking
 			DateTime timestampTime = DateTime.Parse (timestamp);
 			TimeSpan timeSpanSinceLastRecord = DateTime.Now - timestampTime;
 
-
 			return timeSpanSinceLastRecord.TotalSeconds < comeBackLivePeriod;
 		}
 
@@ -124,7 +111,11 @@ namespace NiftyClub.Networking
 
 			CharacterController controller = GetComponent<CharacterController> ();
 			PlayerController pController = GetComponent<PlayerController> ();
-			controller.enabled = false;
+
+			if (controller != null)
+			{
+				controller.enabled = false;
+			}
 			pController.enabled = false;
 
 			Vector3 oldPosition = new Vector3 (
@@ -133,14 +124,10 @@ namespace NiftyClub.Networking
 				PlayerPrefs.GetFloat ($"{playerPositionString}Z"));
 			targetTransform.position = oldPosition;
 
-			Quaternion oldRotation = new Quaternion (
-				PlayerPrefs.GetFloat ($"{playerRotationString}X"),
-				PlayerPrefs.GetFloat ($"{playerRotationString}Y"),
-				PlayerPrefs.GetFloat ($"{playerRotationString}Z"),
-				PlayerPrefs.GetFloat ($"{playerRotationString}W"));
-			targetTransform.rotation = oldRotation;
-
-			controller.enabled = true;
+			if (controller != null)
+			{
+				controller.enabled = true;
+			}
 			pController.enabled = true;
 		}
 
@@ -149,22 +136,17 @@ namespace NiftyClub.Networking
 			bool isDeltaPositionSignificant =
 				Vector3.Distance (targetTransform.position, lastRecordedPosition) > deltaDistance;
 
-			bool isDeltaRotationSignificant =
-				Quaternion.Angle (targetTransform.rotation, lastRecordedRotation) > deltaAngle;
-
-			return isDeltaPositionSignificant || isDeltaRotationSignificant;
+			return isDeltaPositionSignificant;
 		}
 
 		private void SyncPlayerTransform ()
 		{
 			lastRecordedPosition = targetTransform.position;
-			lastRecordedRotation = targetTransform.rotation;
 
 			DarkRiftWriter writer = DarkRiftWriter.Create ();
 
 			PlayerTransform playerTransform = new PlayerTransform (
-				lastRecordedPosition,
-				lastRecordedRotation);
+				lastRecordedPosition);
 			writer.Write (playerTransform);
 
 			Message message = Message.Create (Tags.MovePlayer, writer);
@@ -172,30 +154,6 @@ namespace NiftyClub.Networking
 
 			if (isDebugOn)
 				Debug.Log ("Synced Player Transform");
-		}
-
-		public void LookPositionSync (Vector3 lookPosition, float lookWeight)
-		{
-			bool isDeltaLookPositionSignificant =
-				Vector3.Distance (lookPosition, lastRecordedLookPosition) > deltaLookDistance;
-
-			if (isDeltaLookPositionSignificant)
-			{
-				DarkRiftWriter writer = DarkRiftWriter.Create ();
-
-				writer.Write (lookPosition.x);
-				writer.Write (lookPosition.y);
-				writer.Write (lookPosition.z);
-				writer.Write ((double) lookWeight);
-
-				Message message = Message.Create (Tags.LookPosition, writer);
-				networkingClient.SendMessage (message, SendMode.Unreliable);
-
-				lastRecordedLookPosition = lookPosition;
-
-				if (isDebugOn)
-					Debug.Log ("Synced look position.");
-			}
 		}
 
 		public void JumpSync ()
