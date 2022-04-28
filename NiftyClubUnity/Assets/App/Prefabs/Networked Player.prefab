@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rend: {fileID: 6915157886552824791}
   niftyPlayer: {fileID: 6240137802802801688}
-  isDynamicallyLoaded: 1
+  isDynamicallyLoaded: 0
   loadedSheetIndex: 65
   spriteSheetRefs:
   - m_AssetGUID: a4f5a4c785d3b0d48b5a0779e964120c
@@ -1003,11 +1003,11 @@ MonoBehaviour:
   idleRight:
   - {fileID: 1885008759, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
   idleUp:
-  - {fileID: -1198502430, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
+  - {fileID: -6951419580677732335, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
   idleLeft:
-  - {fileID: 1293391717, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
+  - {fileID: 6725045132732849540, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
   idleDown:
-  - {fileID: -1863231345, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
+  - {fileID: 0, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
   runRight:
   - {fileID: 482097954, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
   - {fileID: -650259413, guid: a4f5a4c785d3b0d48b5a0779e964120c, type: 3}
