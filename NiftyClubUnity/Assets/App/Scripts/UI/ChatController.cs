@@ -26,9 +26,11 @@ namespace NiftyClub.UI
 
 		#region Unity Methods
 
-		void Start ()
+		async void Start ()
 		{
 			TogglePanels (_chatBoxModel.ChatMode);
+			
+			await Task.Delay (1000);
 			
 			EventManager.Instance.Raise (new ChatBoxSetupEvent (_chatBoxModel));
 		}
