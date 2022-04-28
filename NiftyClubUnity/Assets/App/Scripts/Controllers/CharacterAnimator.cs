@@ -10,7 +10,7 @@ namespace NiftyClub.Controllers
 	public class CharacterAnimator : MonoBehaviour
 	{
 		[BoxGroup ("Links"), SerializeField] private SpriteRenderer rend;
-		[BoxGroup ("Links"), SerializeField] private PlayerController character;
+		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
 		
 		[BoxGroup ("Dynamic Load"), SerializeField] private bool isDynamicallyLoaded;
 		[BoxGroup ("Dynamic Load"), SerializeField] private int loadedSheetIndex;
@@ -72,7 +72,7 @@ namespace NiftyClub.Controllers
 					
 					break;
 				case AnimState.Running:
-					AnimateRun (GetRunDirection (character.Velocity));
+					AnimateRun (GetRunDirection (niftyPlayer.Velocity));
 					
 					break;
 			}
@@ -214,11 +214,11 @@ namespace NiftyClub.Controllers
 		
 		private AnimState DetermineAnimState()
 		{
-			if (Mathf.Abs(character.Velocity.magnitude) > 0f) // if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
+			if (Mathf.Abs(niftyPlayer.Velocity.magnitude) > 0f) // if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
 			{
 				return AnimState.Running;
 			}
-			else if (!character.OnGround)
+			else if (!niftyPlayer.OnGround)
 			{
 				return AnimState.Jumping;
 			}

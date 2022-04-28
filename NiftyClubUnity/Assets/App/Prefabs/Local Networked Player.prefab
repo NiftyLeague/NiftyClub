@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6240137802802801688, guid: 9646942b47e74214ca908f72b9c8a72e,
+        type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 8155087613059809426}
     - target: {fileID: 6915157887174792226, guid: 9646942b47e74214ca908f72b9c8a72e,
         type: 3}
       propertyPath: _controller
@@ -74,24 +79,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9646942b47e74214ca908f72b9c8a72e, type: 3}
---- !u!4 &6432409315744946203 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6915157887073497488, guid: 9646942b47e74214ca908f72b9c8a72e,
-    type: 3}
-  m_PrefabInstance: {fileID: 482748572742560139}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6432409315779214761 stripped
+--- !u!114 &5776566919459603859 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6915157887174792226, guid: 9646942b47e74214ca908f72b9c8a72e,
+  m_CorrespondingSourceObject: {fileID: 6240137802802801688, guid: 9646942b47e74214ca908f72b9c8a72e,
     type: 3}
   m_PrefabInstance: {fileID: 482748572742560139}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6432409315779214766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
+  m_Script: {fileID: 11500000, guid: 07f36a3e42d6490ab446dbfa632c04fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6432409315744946203 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6915157887073497488, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6432409315779214766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6915157887174792229, guid: 9646942b47e74214ca908f72b9c8a72e,
@@ -144,7 +149,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6432409315779214761}
+      - m_Target: {fileID: 8155087613059809426}
         m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -160,7 +165,7 @@ MonoBehaviour:
     m_ActionName: gameplay/jump[/Keyboard/space,/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6432409315779214761}
+      - m_Target: {fileID: 8155087613059809426}
         m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -176,7 +181,7 @@ MonoBehaviour:
     m_ActionName: gameplay/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/Mouse/leftButton,/Mouse/middleButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6432409315779214761}
+      - m_Target: {fileID: 8155087613059809426}
         m_TargetAssemblyTypeName: NiftyClub.Controllers.PlayerController, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -199,6 +204,24 @@ MonoBehaviour:
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3346266901989278235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efdddecd188846b9a87bca44b574f7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordPeriod: 5
+  notRecordingPeriod: 5
+  comeBackLivePeriod: 60
+  deltaDistance: 0.1
+  targetTransform: {fileID: 6432409315779214767}
+  isDebugOn: 0
 --- !u!114 &4636372055076124726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,3 +235,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 6432409315744946203}
+--- !u!114 &8155087613059809426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432409315779214766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  niftyPlayer: {fileID: 5776566919459603859}
+  groundRaycastPoint: {fileID: 6432409316765210950}
+  rotateSpeed: 12
+  maxSpeedOnGround: 5
+  movementSharpnessOnGround: 10
+  maxVerticalViewAngle: 60
+  accelerationSpeedInAir: 2
+  maxSpeedInAir: 4
+  jumpHeight: 3
+  gravityValue: 50
+  _transform: {fileID: 6432409315779214767}
+  _aimTransform: {fileID: 6432409315779214767}
+  _controller: {fileID: 5084605952038060631}
+--- !u!4 &6432409315779214767 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6915157887174792228, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6432409316765210950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6915157886214713549, guid: 9646942b47e74214ca908f72b9c8a72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 482748572742560139}
+  m_PrefabAsset: {fileID: 0}

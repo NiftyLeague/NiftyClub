@@ -646,8 +646,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6915157887174792228}
   - component: {fileID: 6240137802802801688}
-  - component: {fileID: 8444572611247529296}
-  - component: {fileID: 6915157887174792226}
   - component: {fileID: 6915157887174792285}
   - component: {fileID: 6915157887174792284}
   m_Layer: 0
@@ -688,54 +686,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveLerpSpeed: 10
-  rotateLerpSpeed: 50
   targetTransform: {fileID: 6915157887174792228}
+  playerController: {fileID: 0}
   nameText: {fileID: 7686098098780514718}
   characterAnimator: {fileID: 6915157887174792285}
---- !u!114 &8444572611247529296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915157887174792229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efdddecd188846b9a87bca44b574f7c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recordPeriod: 5
-  notRecordingPeriod: 5
-  comeBackLivePeriod: 60
-  deltaDistance: 0.1
-  deltaLookDistance: 0
-  deltaAngle: 1
-  targetTransform: {fileID: 6915157887174792228}
-  isDebugOn: 0
---- !u!114 &6915157887174792226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915157887174792229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec52554498ec48d0b1cc01f5471b3e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  niftyPlayer: {fileID: 6240137802802801688}
-  groundRaycastPoint: {fileID: 6915157886214713549}
-  rotateSpeed: 12
-  maxSpeedOnGround: 5
-  movementSharpnessOnGround: 10
-  maxVerticalViewAngle: 60
-  accelerationSpeedInAir: 2
-  maxSpeedInAir: 4
-  jumpHeight: 3
-  gravityValue: 50
-  _transform: {fileID: 6915157887073497488}
-  _controller: {fileID: 0}
 --- !u!114 &6915157887174792285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,7 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rend: {fileID: 6915157886552824791}
-  character: {fileID: 6915157887174792226}
+  niftyPlayer: {fileID: 6240137802802801688}
   isDynamicallyLoaded: 1
   loadedSheetIndex: 65
   spriteSheetRefs:

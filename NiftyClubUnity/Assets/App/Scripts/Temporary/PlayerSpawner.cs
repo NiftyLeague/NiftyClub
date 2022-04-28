@@ -74,16 +74,11 @@ public class PlayerSpawner : NetworkedScriptBase
 								reader.ReadSingle (),
 								reader.ReadSingle (),
 								reader.ReadSingle ());
-							Quaternion rotation = new Quaternion (
-								reader.ReadSingle (),
-								reader.ReadSingle (),
-								reader.ReadSingle (),
-								reader.ReadSingle ());
 							ushort id = reader.ReadUInt16 ();
 							string nickname = new string (reader.ReadChars ());
 							byte characterIndex = reader.ReadByte ();
 
-							SpawnPlayer (position, rotation, id, nickname, characterIndex);
+							SpawnPlayer (position, id, nickname, characterIndex);
 						}
 
 						break;
@@ -104,10 +99,7 @@ public class PlayerSpawner : NetworkedScriptBase
 							if (reader.Length == 0)
 								return;
 
-							Vector3 newPosition = new Vector3 (reader.ReadSingle (), reader.ReadSingle (),
-								reader.ReadSingle ());
-							Quaternion rotation = new Quaternion (
-								reader.ReadSingle (),
+							Vector3 newPosition = new Vector3 (
 								reader.ReadSingle (),
 								reader.ReadSingle (),
 								reader.ReadSingle ());
@@ -115,7 +107,7 @@ public class PlayerSpawner : NetworkedScriptBase
 
 							ThrowIfLocal (id);
 
-							playerDictionary[id].SetMovePosition (newPosition, rotation);
+							playerDictionary[id].SetMovePosition (newPosition);
 						}
 
 						break;
@@ -134,7 +126,7 @@ public class PlayerSpawner : NetworkedScriptBase
 		DespawnAllPlayers ();
 	}
 
-	public void SpawnPlayer (Vector3 position, Quaternion rotation, ushort id, string nickname, byte characterIndex)
+	public void SpawnPlayer (Vector3 position, ushort id, string nickname, byte characterIndex)
 	{
 		bool isLocal = id == networkingClient.ID;
 		NiftyPlayer newPlayer;
@@ -150,7 +142,7 @@ public class PlayerSpawner : NetworkedScriptBase
 			playerDictionary.Add (id, newPlayer);
 		}
 
-		newPlayer.Initialize (position, rotation, id, nickname, isLocal, characterIndex);
+		newPlayer.Initialize (position, id, nickname, isLocal, characterIndex);
 	}
 
 	private void DespawnPlayer (ushort id)

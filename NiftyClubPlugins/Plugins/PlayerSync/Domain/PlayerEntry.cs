@@ -11,11 +11,6 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
         internal float PositionY { get; set; }
         internal float PositionZ { get; set; }
 
-        internal float RotationX { get; set; }
-        internal float RotationY { get; set; }
-        internal float RotationZ { get; set; }
-        internal float RotationW { get; set; }
-
         internal ushort Id { get; set; }
 
         public PlayerEntry ()
@@ -34,11 +29,6 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
             PositionY = player.Position.Y;
             PositionZ = player.Position.Z;
 
-            RotationX = player.Rotation.X;
-            RotationY = player.Rotation.Y;
-            RotationZ = player.Rotation.Z;
-            RotationW = player.Rotation.W;
-
             Id = player.ID;
         }
 
@@ -47,11 +37,6 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
             PositionX = e.Reader.ReadSingle ();
             PositionY = e.Reader.ReadSingle ();
             PositionZ = e.Reader.ReadSingle ();
-
-            RotationX = e.Reader.ReadSingle ();
-            RotationY = e.Reader.ReadSingle ();
-            RotationZ = e.Reader.ReadSingle ();
-            RotationW = e.Reader.ReadSingle ();
         }
 
         public void Serialize (SerializeEvent e)
@@ -59,11 +44,6 @@ namespace NiftyClubPlugins.Plugins.PlayerSync.Domain
             e.Writer.Write (PositionX);
             e.Writer.Write (PositionY);
             e.Writer.Write (PositionZ);
-
-            e.Writer.Write (RotationX);
-            e.Writer.Write (RotationY);
-            e.Writer.Write (RotationZ);
-            e.Writer.Write (RotationW);
 
             e.Writer.Write (Id);
         }

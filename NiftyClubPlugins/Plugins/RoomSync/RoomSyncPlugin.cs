@@ -15,7 +15,7 @@ namespace NiftyClubPlugins.Plugins.RoomSync
 	class RoomSyncPlugin : Plugin
 	{
 		public override bool ThreadSafe => true;
-		public override Version Version => new Version (0, 2, 0);
+		public override Version Version => new Version (0, 3, 0);
 
 		private ConcurrentDictionary<string, Room> roomDictionary = new ConcurrentDictionary<string, Room> ();
 
@@ -161,7 +161,6 @@ namespace NiftyClubPlugins.Plugins.RoomSync
 								// Spawn Player
 								Player player = new Player (
 									CommonConfig.DefaultSpawnPosition,
-									CommonConfig.DefaultSpawnRotation,
 									e.Client.ID,
 									nickname,
 									deviceId,

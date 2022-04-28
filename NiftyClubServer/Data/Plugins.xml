@@ -12,7 +12,7 @@
   <plugin id="9" name="ObjectCacheMonitor" version="1.0.0" />
   <plugin id="10" name="HttpHealthCheck" version="1.0.0" />
   <plugin id="11" name="AgarPlayerManager" version="1.0.3" />
-  <plugin id="12" name="RoomSyncPlugin" version="0.2.0" />
+  <plugin id="12" name="RoomSyncPlugin" version="0.3.0" />
   <plugin id="13" name="PlayerSyncPlugin" version="0.2.0" />
   <plugin id="14" name="ChatSyncPlugin" version="0.1.0" />
 </plugins>
