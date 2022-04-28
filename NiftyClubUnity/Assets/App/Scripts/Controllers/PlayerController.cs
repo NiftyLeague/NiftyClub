@@ -47,7 +47,6 @@ namespace NiftyClub.Controllers
 		[SerializeField] private float gravityValue = 16.0f;
 
 		[BoxGroup ("Links"), SerializeField] private Transform _transform;
-		[BoxGroup ("Links"), SerializeField] private Transform _aimTransform;
 		[BoxGroup ("Links"), SerializeField] private CharacterController _controller;
 
 		private Vector2 _rotation;
@@ -227,7 +226,7 @@ namespace NiftyClub.Controllers
 
 			_rotation.x += rotate.x * scaledRotateSpeed;
 			//rotate whole character (including camera)
-			_aimTransform.localEulerAngles = new Vector3 (0.0f, _rotation.x, 0.0f);
+			_transform.localEulerAngles = new Vector3 (0.0f, _rotation.x, 0.0f);
 
 			_rotation.y -= rotate.y * scaledRotateSpeed;
 			_rotation.y = Mathf.Clamp (_rotation.y, -maxVerticalViewAngle, maxVerticalViewAngle);

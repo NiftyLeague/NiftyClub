@@ -257,8 +257,7 @@ MonoBehaviour:
   maxSpeedInAir: 4
   jumpHeight: 3
   gravityValue: 50
-  _transform: {fileID: 6432409315779214767}
-  _aimTransform: {fileID: 6432409315779214767}
+  _transform: {fileID: 6432409315744946203}
   _controller: {fileID: 5084605952038060631}
 --- !u!4 &6432409315779214767 stripped
 Transform:
