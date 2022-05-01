@@ -10,7 +10,6 @@ namespace NiftyClub.Controllers
 {
 	public class CharacterAnimator : MonoBehaviour
 	{
-		[BoxGroup ("Links"), SerializeField] private Transform followAimTransform;
 		[BoxGroup ("Links"), SerializeField] private SpriteRenderer rend;
 		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
 
@@ -68,6 +67,9 @@ namespace NiftyClub.Controllers
 
 		void LateUpdate ()
 		{
+			if (NiftyPlayer.Local == null)
+				return;
+			
 			var newAnimState = DetermineAnimState ();
 
 			if (animState != newAnimState)
@@ -89,7 +91,7 @@ namespace NiftyClub.Controllers
 						niftyPlayer.IsLocal ?
 							new Vector3 (niftyPlayer.CharacterVelocity.x, 0, niftyPlayer.CharacterVelocity.y) :
 							new Vector3 (niftyPlayer.CharacterVelocity.x, 0, niftyPlayer.CharacterVelocity.z);
-					Vector3 relative = followAimTransform.InverseTransformVector (newVector);
+					Vector3 relative = NiftyPlayer.Local.FollowAimTransform.InverseTransformVector (newVector);
 					// Debug.Log ($"relative: <color=cyan>{relative.normalized}</color>, niftyPlayer.CharacterVelocity: <color=cyan>{niftyPlayer.CharacterVelocity}</color>");
 					AnimateRun (
 						GetRunDirection (new Vector2 (relative.x, relative.z)));

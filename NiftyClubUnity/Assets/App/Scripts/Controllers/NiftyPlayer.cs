@@ -14,6 +14,12 @@ namespace NiftyClub.Controllers
 		[BoxGroup ("Links"), SerializeField] private PlayerController playerController;
 		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI nameText;
 		[BoxGroup ("Links"), SerializeField] private CharacterAnimator characterAnimator;
+		
+		[BoxGroup ("Links"), SerializeField] private Transform followAimTransform;
+		public Transform FollowAimTransform => followAimTransform;
+
+		private static NiftyPlayer _local;
+		public static NiftyPlayer Local => _local;
 
 		private ushort _id;
 		public ushort ID => _id;
@@ -38,7 +44,7 @@ namespace NiftyClub.Controllers
 		public bool OnGround => playerController != null ? playerController.OnGround : true;
 
 		#region Unity Methods
-
+		
 		void Update ()
 		{
 			if (!isInitialized || _isLocal)
@@ -72,6 +78,11 @@ namespace NiftyClub.Controllers
 			_id = id;
 			_nickname = nickname;
 			_isLocal = isLocal;
+			
+			if (_isLocal)
+			{
+				_local = this;
+			}
 
 			nameText.text = nickname;
 

@@ -586,6 +586,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   nameText: {fileID: 7686098098780514718}
   characterAnimator: {fileID: 6915157887174792285}
+  followAimTransform: {fileID: 6915157887073497488}
 --- !u!114 &6915157887174792285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6b58e6947b452592f7a84ecca6d4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followAimTransform: {fileID: 6915157887073497488}
   rend: {fileID: 6915157886552824791}
   niftyPlayer: {fileID: 6240137802802801688}
   isDynamicallyLoaded: 0
