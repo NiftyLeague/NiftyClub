@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6b58e6947b452592f7a84ecca6d4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followAimTransform: {fileID: 6915157887073497488}
   rend: {fileID: 6915157886552824791}
   niftyPlayer: {fileID: 6240137802802801688}
   isDynamicallyLoaded: 0

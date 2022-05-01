@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DarkRift;
 using DarkRift.Client;
 using NiftyClub.Domain;
@@ -19,15 +20,19 @@ namespace NiftyClub.Controllers
 
 		#region Unity Methods
 
-		protected override void Awake ()
+		protected override async Task AwakeAsync ()
 		{
-			base.Awake ();
+			await base.AwakeAsync ();
 
+			if (networkingClient == null)
+				return;
 			networkingClient.MessageReceived += OnMessageReceived;
 		}
 
 		void OnDestroy ()
 		{
+			if (networkingClient == null)
+				return;
 			networkingClient.MessageReceived -= OnMessageReceived;
 		}
 

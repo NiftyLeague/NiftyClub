@@ -59,6 +59,7 @@ namespace NiftyClub.Controllers
 
 		public bool OnGround => isGrounded;
 
+		public Vector2 CharacterVelocity => new Vector2 (_characterVelocity.x, _characterVelocity.z);
 		public Vector3 Velocity
 		{
 			get => _move;

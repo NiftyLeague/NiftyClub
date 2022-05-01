@@ -250,6 +250,45 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""menu"",
+            ""id"": ""04ec729c-7a92-4ba6-9043-320e7f89066d"",
+            ""actions"": [
+                {
+                    ""name"": ""next"",
+                    ""type"": ""Button"",
+                    ""id"": ""b784f9f9-8565-4652-b985-0e8315fbe714"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b1f10073-859b-46c8-a8d7-e4649d0d03e7"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c139f6d1-620a-4f07-b5fd-71a9065c86fc"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -262,6 +301,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         // chat
         m_chat = asset.FindActionMap("chat", throwIfNotFound: true);
         m_chat_interact = m_chat.FindAction("interact", throwIfNotFound: true);
+        // menu
+        m_menu = asset.FindActionMap("menu", throwIfNotFound: true);
+        m_menu_next = m_menu.FindAction("next", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -399,6 +441,39 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     }
     public ChatActions @chat => new ChatActions(this);
+
+    // menu
+    private readonly InputActionMap m_menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_menu_next;
+    public struct MenuActions
+    {
+        private @Controls m_Wrapper;
+        public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @next => m_Wrapper.m_menu_next;
+        public InputActionMap Get() { return m_Wrapper.m_menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @next.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNext;
+                @next.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNext;
+                @next.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNext;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @next.started += instance.OnNext;
+                @next.performed += instance.OnNext;
+                @next.canceled += instance.OnNext;
+            }
+        }
+    }
+    public MenuActions @menu => new MenuActions(this);
     public interface IGameplayActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -408,5 +483,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     public interface IChatActions
     {
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnNext(InputAction.CallbackContext context);
     }
 }

@@ -33,6 +33,7 @@ namespace NiftyClub.Controllers
 		
 		private float time;
 
+		public Vector3 CharacterVelocity => playerController != null ? playerController.CharacterVelocity.normalized : GetVelocityVector ();
 		public Vector3 Velocity => playerController != null ? playerController.Velocity : GetVelocityVector ();
 		public bool OnGround => playerController != null ? playerController.OnGround : true;
 

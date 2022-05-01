@@ -179,6 +179,10 @@ MonoBehaviour:
     m_ActionId: c60e0974-d140-4597-a40e-9862193067e9
     m_ActionName: gameplay/look[/Mouse/delta]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd1fe7dd-e25f-42aa-b43f-d503d10c8554
+    m_ActionName: chat/interact[/Keyboard/enter]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 322596902}
         m_TargetAssemblyTypeName: NiftyClub.Controllers.BootstrapController, Assembly-CSharp
@@ -192,11 +196,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: bd1fe7dd-e25f-42aa-b43f-d503d10c8554
-    m_ActionName: chat/interact[/Keyboard/enter]
+    m_ActionId: b784f9f9-8565-4652-b985-0e8315fbe714
+    m_ActionName: menu/next[/Keyboard/enter,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: chat
+  m_DefaultActionMap: 04ec729c-7a92-4ba6-9043-320e7f89066d
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &262088201
