@@ -10,6 +10,7 @@ namespace NiftyClub.Controllers
 {
 	public class CharacterAnimator : MonoBehaviour
 	{
+		[BoxGroup ("Links"), SerializeField] private Transform followAimTransform;
 		[BoxGroup ("Links"), SerializeField] private SpriteRenderer rend;
 		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
 
@@ -46,10 +47,14 @@ namespace NiftyClub.Controllers
 
 		private RunDirection lastRunDirection = RunDirection.Down;
 
+		private Transform mainCameraTransform;
+
 		#region Unity Methods
 
 		void Start ()
 		{
+			mainCameraTransform = Camera.main.transform;
+			
 			if (!isDynamicallyLoaded)
 				return;
 
@@ -80,7 +85,14 @@ namespace NiftyClub.Controllers
 
 					break;
 				case AnimState.Running:
-					AnimateRun (GetRunDirection (niftyPlayer.Velocity));
+					Vector3 newVector =
+						niftyPlayer.IsLocal ?
+							new Vector3 (niftyPlayer.CharacterVelocity.x, 0, niftyPlayer.CharacterVelocity.y) :
+							new Vector3 (niftyPlayer.CharacterVelocity.x, 0, niftyPlayer.CharacterVelocity.z);
+					Vector3 relative = followAimTransform.InverseTransformVector (newVector);
+					// Debug.Log ($"relative: <color=cyan>{relative.normalized}</color>, niftyPlayer.CharacterVelocity: <color=cyan>{niftyPlayer.CharacterVelocity}</color>");
+					AnimateRun (
+						GetRunDirection (new Vector2 (relative.x, relative.z)));
 
 					break;
 			}
@@ -191,6 +203,16 @@ namespace NiftyClub.Controllers
 			}
 		}
 
+		private Vector2 GetCameraDirectedMotionVector (Vector2 moveDirection, Vector2 cameraLookDirection)
+		{
+			float theta = Vector2.Angle (cameraLookDirection, moveDirection);
+			Debug.Log ($"theta: {theta}");
+			float alongMagnitude = Vector2.Dot (moveDirection.normalized, cameraLookDirection.normalized);
+			float perpendicularMagnitude = alongMagnitude * Mathf.Tan (theta * Mathf.PI / 180f);
+
+			return new Vector2 (perpendicularMagnitude, alongMagnitude); // * moveDirection.magnitude;
+		}
+		
 		private Sprite[] GetRunDirection (Vector2 moveDirection)
 		{
 			if (Mathf.Abs (moveDirection.x) > Mathf.Abs (moveDirection.y))
@@ -248,7 +270,7 @@ namespace NiftyClub.Controllers
 		private AnimState DetermineAnimState ()
 		{
 			// if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
-			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) > 0f)
+			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) > 0.01f)
 			{
 				return AnimState.Running;
 			}

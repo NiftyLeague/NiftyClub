@@ -228,6 +228,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "menu",
+            "id": "04ec729c-7a92-4ba6-9043-320e7f89066d",
+            "actions": [
+                {
+                    "name": "next",
+                    "type": "Button",
+                    "id": "b784f9f9-8565-4652-b985-0e8315fbe714",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b1f10073-859b-46c8-a8d7-e4649d0d03e7",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c139f6d1-620a-4f07-b5fd-71a9065c86fc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

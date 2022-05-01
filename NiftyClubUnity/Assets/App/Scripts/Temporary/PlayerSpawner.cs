@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DarkRift;
 using DarkRift.Client;
 using NiftyClub.Controllers;
@@ -29,9 +30,9 @@ public class PlayerSpawner : NetworkedScriptBase
 
 	#region Unity Methods
 
-	protected override void Awake ()
+	protected override async Task AwakeAsync ()
 	{
-		base.Awake ();
+		await base.AwakeAsync ();
 		
 		if (networkingClient == null)
 		{
