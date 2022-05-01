@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NiftyClubPlugins.Common.Enums;
@@ -248,7 +248,7 @@ namespace NiftyClub.Controllers
 		private AnimState DetermineAnimState ()
 		{
 			// if (character.OnGround && Mathf.Abs(character.Velocity.magnitude) > 0f)
-			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) > 0f)
+			if (Mathf.Abs (niftyPlayer.Velocity.magnitude) > 0.01f)
 			{
 				return AnimState.Running;
 			}
