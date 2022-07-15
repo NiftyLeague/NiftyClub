@@ -22,3 +22,12 @@ THe project can be used to connect remotely as well. In that case Core build sho
 2. Deploy **NiftyClubServerCore folder** into the server
 3. Get server IP
 4. Set correct IP and port settings in the project (Init scene: Dark Rift Networking > Unity Client).
+
+### How to Setup Remote Server
+
+1. Create a server instance
+2. SSH into it
+3. Follow Microsoft guidelines to install PowerSheell into your instance (e.g. https://docs.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.2 for Ubuntu)
+4. Install v3.1 of .Net into your instance (e.g. https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu for Ubuntu)
+5. Start PowerShell: pwsh
+6. Run the executable: ./Run.ps1
