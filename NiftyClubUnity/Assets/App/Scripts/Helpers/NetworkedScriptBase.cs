@@ -10,22 +10,22 @@ namespace NiftyClub.Helpers
 		
 		#region Unity Methods
 
-		void Awake ()
+		async void Awake ()
 		{
-			AwakeAsync ();
+			await AwakeAsync ();
 		}
 
 		#endregion
 
 		protected virtual async Task AwakeAsync ()
 		{
-			networkingClient = FindObjectOfType<UnityClient> ();
+			networkingClient = FindFirstObjectByType<UnityClient> ();
 
 			while (networkingClient == null)
 			{
 				await Task.Yield ();
 				
-				networkingClient = FindObjectOfType<UnityClient> ();
+				networkingClient = FindFirstObjectByType<UnityClient> ();
 			}
 		}
 	}

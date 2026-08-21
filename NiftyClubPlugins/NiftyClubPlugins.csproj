@@ -2,19 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <DarkRiftLibPath Condition="'$(DarkRiftLibPath)' == ''">$(MSBuildThisFileDirectory)..\NiftyClubServerCore\Lib</DarkRiftLibPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="DarkRift">
-      <HintPath>..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\DarkRift.dll</HintPath>
+      <HintPath>$(DarkRiftLibPath)\DarkRift.dll</HintPath>
     </Reference>
     <Reference Include="DarkRift.Server">
-      <HintPath>..\..\..\..\m33t\Assets\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.dll</HintPath>
+      <HintPath>$(DarkRiftLibPath)\DarkRift.Server.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)bin\Debug\netstandard2.0\NiftyClubPlugins.dll&quot; &quot;D:\Projects\Toptal\NiftyLeague\NiftyClub\NiftyClubServer\Plugins&quot; /Y" />
+    <ItemGroup>
+      <PluginDestination Include="$(MSBuildThisFileDirectory)..\NiftyClubServer\Plugins" />
+      <PluginDestination Include="$(MSBuildThisFileDirectory)..\NiftyClubServerCore\Plugins" />
+    </ItemGroup>
+    <MakeDir Directories="@(PluginDestination)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="%(PluginDestination.Identity)" />
   </Target>
 
 </Project>

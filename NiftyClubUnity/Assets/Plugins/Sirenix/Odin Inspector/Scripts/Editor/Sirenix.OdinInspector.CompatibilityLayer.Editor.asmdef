@@ -11,5 +11,5 @@
     "autoReferenced": true,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "defineConstraints": []
+    "defineConstraints": ["ODIN_EDITOR_DLL_ENABLED"]
 }

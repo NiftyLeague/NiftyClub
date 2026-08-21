@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,9 +8,9 @@ namespace NiftyClub.Controllers
 {
 	public class BootstrapController : MonoBehaviour
 	{
-		[BoxGroup ("Parameters"), SerializeField] private string launcherScene;
+		[Header ("Parameters"), SerializeField] private string launcherScene;
 
-		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI infoText;
+		[Header ("Links"), SerializeField] private TextMeshProUGUI infoText;
 
 		private bool isReadyToLoad = false;
 

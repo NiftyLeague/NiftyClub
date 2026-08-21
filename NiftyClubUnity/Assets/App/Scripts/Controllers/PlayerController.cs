@@ -3,7 +3,6 @@ using DynamicBox.EventManagement;
 using NiftyClub.Domain;
 using NiftyClub.GameEvents;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,8 +45,8 @@ namespace NiftyClub.Controllers
 		[Range (1.0f, 50.0f)]
 		[SerializeField] private float gravityValue = 16.0f;
 
-		[BoxGroup ("Links"), SerializeField] private Transform _transform;
-		[BoxGroup ("Links"), SerializeField] private CharacterController _controller;
+		[Header ("Links"), SerializeField] private Transform _transform;
+		[Header ("Links"), SerializeField] private CharacterController _controller;
 
 		private Vector2 _rotation;
 		private Vector3 _characterVelocity;

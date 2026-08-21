@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -10,29 +9,29 @@ namespace NiftyClub.Controllers
 {
 	public class CharacterAnimator : MonoBehaviour
 	{
-		[BoxGroup ("Links"), SerializeField] private SpriteRenderer rend;
-		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
+		[Header ("Links"), SerializeField] private SpriteRenderer rend;
+		[Header ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
 
-		[BoxGroup ("Dynamic Load"), SerializeField]
+		[Header ("Dynamic Load"), SerializeField]
 		private bool isDynamicallyLoaded;
 
-		[BoxGroup ("Dynamic Load"), SerializeField]
+		[Header ("Dynamic Load"), SerializeField]
 		private int loadedSheetIndex;
 
-		[BoxGroup ("Dynamic Load"), SerializeField]
+		[Header ("Dynamic Load"), SerializeField]
 		private AssetReference[] spriteSheetRefs;
 
-		[BoxGroup ("Dynamic Load"), SerializeField]
+		[Header ("Dynamic Load"), SerializeField]
 		private Sprite[] spriteSheet;
 
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] idleRight;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] idleUp;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] idleLeft;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] idleDown;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] runRight;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] runUp;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] runLeft;
-		[BoxGroup ("Sprites"), SerializeField] private Sprite[] runDown;
+		[Header ("Sprites"), SerializeField] private Sprite[] idleRight;
+		[Header ("Sprites"), SerializeField] private Sprite[] idleUp;
+		[Header ("Sprites"), SerializeField] private Sprite[] idleLeft;
+		[Header ("Sprites"), SerializeField] private Sprite[] idleDown;
+		[Header ("Sprites"), SerializeField] private Sprite[] runRight;
+		[Header ("Sprites"), SerializeField] private Sprite[] runUp;
+		[Header ("Sprites"), SerializeField] private Sprite[] runLeft;
+		[Header ("Sprites"), SerializeField] private Sprite[] runDown;
 
 		private int frame;
 		float frameCounter;

@@ -2,12 +2,11 @@
 using DarkRift;
 using DarkRift.Client;
 using DarkRift.Client.Unity;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerTransformSync : MonoBehaviour
 {
-	[BoxGroup ("Parameters"), SerializeField, Tooltip("The distance we can move before we send a position update.")]
+	[Header ("Parameters"), SerializeField, Tooltip("The distance we can move before we send a position update.")]
 	private float moveDistance = 0.05f;
 
 	public UnityClient Client { get; set; }

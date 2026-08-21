@@ -6,7 +6,7 @@
 
 namespace Sirenix.OdinInspector.Modules.UnityMathematics.Editor
 {
-#if UNITY_EDITOR
+#if false // ODIN_EDITOR_DLL_DISABLED - Odin 3.0.12 editor DLL disabled for Unity 6 compatibility
     using System;
     using System.Collections.Generic;
     using System.Reflection;

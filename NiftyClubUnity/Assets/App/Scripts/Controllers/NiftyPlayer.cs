@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -8,14 +7,14 @@ namespace NiftyClub.Controllers
 {
 	public class NiftyPlayer : MonoBehaviour
 	{
-		[BoxGroup ("Parameters"), SerializeField] private float moveLerpSpeed = 10f;
+		[Header ("Parameters"), SerializeField] private float moveLerpSpeed = 10f;
 
-		[BoxGroup ("Links"), SerializeField] private Transform targetTransform;
-		[BoxGroup ("Links"), SerializeField] private PlayerController playerController;
-		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI nameText;
-		[BoxGroup ("Links"), SerializeField] private CharacterAnimator characterAnimator;
+		[Header ("Links"), SerializeField] private Transform targetTransform;
+		[Header ("Links"), SerializeField] private PlayerController playerController;
+		[Header ("Links"), SerializeField] private TextMeshProUGUI nameText;
+		[Header ("Links"), SerializeField] private CharacterAnimator characterAnimator;
 		
-		[BoxGroup ("Links"), SerializeField] private Transform followAimTransform;
+		[Header ("Links"), SerializeField] private Transform followAimTransform;
 		public Transform FollowAimTransform => followAimTransform;
 
 		private static NiftyPlayer _local;

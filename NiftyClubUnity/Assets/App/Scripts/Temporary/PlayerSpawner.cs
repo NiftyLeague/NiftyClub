@@ -7,21 +7,20 @@ using DarkRift.Client;
 using NiftyClub.Controllers;
 using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerSpawner : NetworkedScriptBase
 {
-	[BoxGroup ("Links"), SerializeField]
+	[Header ("Links"), SerializeField]
 	private Transform parentTransform;
 
-	[BoxGroup ("Prefabs"), SerializeField, Tooltip ("The controllable player prefab.")]
+	[Header ("Prefabs"), SerializeField, Tooltip ("The controllable player prefab.")]
 	private NiftyPlayer controllablePrefab;
 
-	[BoxGroup ("Prefabs"), SerializeField, Tooltip ("The network controllable player prefab.")]
+	[Header ("Prefabs"), SerializeField, Tooltip ("The network controllable player prefab.")]
 	private NiftyPlayer networkPrefab;
 
-	[BoxGroup ("Debug"), SerializeField] private bool isDebugOn;
+	[Header ("Debug"), SerializeField] private bool isDebugOn;
 
 	private Dictionary<ushort, NiftyPlayer> playerDictionary = new Dictionary<ushort, NiftyPlayer> ();
 	public int PlayerCount => playerDictionary.Count;

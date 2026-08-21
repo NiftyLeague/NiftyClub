@@ -5,14 +5,13 @@ using DarkRift.Client;
 using NiftyClub.Domain;
 using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace NiftyClub.Controllers
 {
 	public class MessageArchive : NetworkedScriptBase
 	{
-		[BoxGroup ("Debug"), SerializeField] private bool isDebugOn;
+		[Header ("Debug"), SerializeField] private bool isDebugOn;
 		
 		private readonly List<SpawnedPlayerDatum> spawnedPlayerData = new List<SpawnedPlayerDatum> ();
 
@@ -93,7 +92,7 @@ namespace NiftyClub.Controllers
 
 		private void TryRelaySpawnedPlayers ()
 		{
-			PlayerSpawner playerSpawner = FindObjectOfType<PlayerSpawner> ();
+			PlayerSpawner playerSpawner = FindFirstObjectByType<PlayerSpawner> ();
 			if (playerSpawner == null)
 				return;
 
