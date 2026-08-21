@@ -1,33 +1,77 @@
 # Nifty Club
 
-## Project Structure
-Project is divided into 4 folders. They can be described as follows:
+## Project structure
 
-1. **NiftyClubPlugins:** .NET project covering the plugins we develop
-2. **NiftyClubServer:** Server folder where we place plugins (under **Plugins folder**) and server executable mostly used for local testing purposes
-3. **NiftyClubServerCore:** Server folder where we place plugins (under **Plugins folder**) and server executable mostly used for remote testing purposes
-4. **NiftyClubUnity:** Unity project
+1. **NiftyClubPlugins** – the .NET project containing the server plugins.
+2. **NiftyClubServer** – the Windows local-test server distribution.
+3. **NiftyClubServerCore** – the cross-platform server distribution.
+4. **NiftyClubUnity** – the Unity client project.
 
-## How to Run Locally
-By default, project is communicating with local instance (**127.0.0.1** on port **4296**) of **Dark Rift**. That's why you don't need to do any tweaks in the Unity Editor or builds to run it locally.
+## Prerequisites
 
-1. Open up **NiftyClubServer folder** in the repo root.
-2. Run **DarkRift.Server.Console.exe executable** in that folder.
-3. You can either run the project in the Unity Editor or generate builds and run them instead.
+- Unity **6000.3.20f1**, the newest Unity editor currently installed for this
+  project.
+- A current .NET SDK to build `NiftyClubPlugins`. The project targets
+  `netstandard2.0` for compatibility with the bundled DarkRift 2.10.1 server
+  libraries.
+- A current .NET runtime to run the bundled Core server. PowerShell 7 (`pwsh`)
+  is optional; `Run.sh` is provided for macOS and Linux.
 
-## How to Run Remotely
-THe project can be used to connect remotely as well. In that case Core build should be hosted on some server.
+The Unity project uses the Unity 6 package set recorded in
+`NiftyClubUnity/Packages/manifest.json` and `packages-lock.json`. The obsolete
+Unity VS Code package is intentionally not included; Unity's Visual Studio IDE
+package is the supported route for VS Code integration in this editor
+generation. The bundled Odin Inspector and SRDebugger assets are retained as
+legacy files for now, but the application does not depend on either paid or
+restricted feature: Odin's inspector-only attributes use Unity's built-in
+attributes, and SRDebugger is disabled with the reversible
+`DISABLE_SRDEBUGGER` project define. Use Unity's built-in Console/Profiler or
+the configured Unity MCP relay for debugging.
 
-1. Arrange a server and install required dependencies (to be expanded on)
-2. Deploy **NiftyClubServerCore folder** into the server
-3. Get server IP
-4. Set correct IP and port settings in the project (Init scene: Dark Rift Networking > Unity Client).
+## Build the server plugins
 
-### How to Setup Remote Server
+From the repository root:
 
-1. Create a server instance
-2. SSH into it
-3. Follow Microsoft guidelines to install PowerSheell into your instance (e.g. https://docs.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.2 for Ubuntu)
-4. Install v3.1 of .Net into your instance (e.g. https://docs.microsoft.com/en-us/dotnet/core/install/linux-ubuntu for Ubuntu)
-5. Start PowerShell: pwsh
-6. Run the executable: ./Run.ps1
+```sh
+dotnet restore NiftyClubPlugins/NiftyClubPlugins.csproj
+dotnet build NiftyClubPlugins/NiftyClubPlugins.csproj
+```
+
+The build copies `NiftyClubPlugins.dll` into both server distributions' `Plugins`
+folders.
+
+## Run locally
+
+The Unity client defaults to `127.0.0.1:4296`.
+
+On macOS or Linux, after building the plugins:
+
+```sh
+cd NiftyClubServerCore
+./Run.sh
+```
+
+Both launchers enable .NET major-version roll-forward so the bundled .NET Core
+3.1 DarkRift server can run with a current installed .NET runtime. The server
+was verified on this machine with .NET 9 and loaded RoomSyncPlugin,
+PlayerSyncPlugin, and ChatSyncPlugin before listening on port 4296.
+
+On Windows, the legacy local distribution can be started from
+`NiftyClubServer` with `DarkRift.Server.Console.exe`.
+
+With the server running, open `NiftyClubUnity` in Unity 6000.3.20f1 and press
+Play, or create a client build.
+
+## Run on a remote host
+
+1. Build the plugins and deploy `NiftyClubServerCore` to the host.
+2. Install a current .NET runtime on the host.
+3. Start the server with `./Run.sh` (or `pwsh ./Run.ps1`) from
+   `NiftyClubServerCore`.
+4. Update the server address and port in the Init scene under
+   `Dark Rift Networking > Unity Client` before building the client.
+
+The bundled server binary is still DarkRift 2.10.1, but the current upstream
+DarkRift 2 project is open source and free of CCU limits. This migration keeps
+the existing DarkRift protocol and plugins intact instead of introducing a
+networking rewrite.

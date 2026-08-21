@@ -5,7 +5,6 @@ using DarkRift;
 using DarkRift.Client;
 using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,10 +13,10 @@ namespace NiftyClub.Controllers
 {
 	public class LauncherController : NetworkedScriptBase
 	{
-		[BoxGroup ("Parameters"), SerializeField] private string sceneToLoad;
+		[Header ("Parameters"), SerializeField] private string sceneToLoad;
 
-		[BoxGroup ("Links"), SerializeField] private TMP_InputField usernameInputField;
-		[BoxGroup ("Links"), SerializeField] private TMP_Dropdown characterDropdown;
+		[Header ("Links"), SerializeField] private TMP_InputField usernameInputField;
+		[Header ("Links"), SerializeField] private TMP_Dropdown characterDropdown;
 		
 		private const string loggedInRoomNamePref = "loggedInRoomName";
 		private const string loggedInNicknamePref = "loggedInNickname";

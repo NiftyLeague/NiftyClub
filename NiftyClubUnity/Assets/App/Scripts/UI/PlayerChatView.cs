@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DynamicBox.EventManagement;
 using NiftyClub.Controllers;
 using NiftyClub.GameEvents;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -11,10 +10,10 @@ namespace NiftyClub.UI
 {
 	public class PlayerChatView : MonoBehaviour
 	{
-		[BoxGroup ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
+		[Header ("Links"), SerializeField] private NiftyPlayer niftyPlayer;
 		
-		[BoxGroup ("Links"), SerializeField] private GameObject chatParent;
-		[BoxGroup ("Links"), SerializeField] private TextMeshProUGUI chatText;
+		[Header ("Links"), SerializeField] private GameObject chatParent;
+		[Header ("Links"), SerializeField] private TextMeshProUGUI chatText;
 		
 		#region Unity Methods
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugins nextID="15">
+  <plugin id="0" name="RoomSyncPlugin" version="0.3.0" />
+  <plugin id="1" name="PlayerSyncPlugin" version="0.2.0" />
+  <plugin id="2" name="ChatSyncPlugin" version="0.1.0" />
+  <plugin id="3" name="HelpCommand" version="1.0.0" />
+  <plugin id="4" name="PluginController" version="1.0.0" />
+  <plugin id="5" name="Sniffer" version="1.0.0" />
+  <plugin id="6" name="DemoCommand" version="1.0.0" />
+  <plugin id="7" name="MessageCommand" version="1.0.0" />
+  <plugin id="8" name="MockCommand" version="1.0.0" />
+  <plugin id="9" name="DebugCommand" version="1.0.0" />
+  <plugin id="10" name="ClientCommand" version="1.0.0" />
+  <plugin id="11" name="ClearCommand" version="1.0.0" />
+  <plugin id="12" name="ObjectCacheMonitor" version="1.0.0" />
+  <plugin id="13" name="HttpHealthCheck" version="1.0.0" />
+  <plugin id="14" name="BadWordFilter" version="1.0.0" />
+</plugins>

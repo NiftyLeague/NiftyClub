@@ -1,10 +1,9 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-	[BoxGroup ("Parameters"), SerializeField] public float speed = 5f;
+	[Header ("Parameters"), SerializeField] public float speed = 5f;
 
 	private Transform cameraTransform;
 	

@@ -1,16 +1,15 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent (typeof (Renderer))]
 public class AgarObject : MonoBehaviour
 {
-	[BoxGroup ("Parameters"), SerializeField, Tooltip ("The speed that the player will move.")]
+	[Header ("Parameters"), SerializeField, Tooltip ("The speed that the player will move.")]
 	float speed = 1f;
 
-	[BoxGroup ("Parameters"), SerializeField, Tooltip ("Multiplier for the scaling of the player.")]
+	[Header ("Parameters"), SerializeField, Tooltip ("Multiplier for the scaling of the player.")]
 	float scale = 1f;
 
-	[BoxGroup ("Links"), SerializeField] private Renderer spriteRenderer;
+	[Header ("Links"), SerializeField] private Renderer spriteRenderer;
 
 	Vector3 movePosition;
 

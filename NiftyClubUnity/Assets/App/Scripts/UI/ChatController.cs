@@ -5,7 +5,6 @@ using NiftyClub.Domain;
 using NiftyClub.GameEvents;
 using NiftyClub.Helpers;
 using NiftyClubPlugins.Common.Enums;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,10 +14,10 @@ namespace NiftyClub.UI
 {
 	public class ChatController : NetworkedScriptBase
 	{
-		[BoxGroup ("Info Panel"), SerializeField] private GameObject infoParentPanel;
+		[Header ("Info Panel"), SerializeField] private GameObject infoParentPanel;
 		
-		[BoxGroup ("Chat Panel"), SerializeField] private GameObject chatParentPanel;
-		[BoxGroup ("Chat Panel"), SerializeField] private TMP_InputField chatInputField;
+		[Header ("Chat Panel"), SerializeField] private GameObject chatParentPanel;
+		[Header ("Chat Panel"), SerializeField] private TMP_InputField chatInputField;
 
 		private bool isInteracted = false;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DarkRift;
 using DarkRift.Client;
 using DynamicBox.EventManagement;
@@ -13,8 +14,13 @@ namespace NiftyClub.Controllers
 	{
 		#region Unity Methods
 
-		void Start ()
+		protected override async Task AwakeAsync ()
 		{
+			await base.AwakeAsync ();
+
+			if (networkingClient == null)
+				return;
+
 			networkingClient.MessageReceived += OnMessageReceived;
 		}
 		
@@ -25,7 +31,11 @@ namespace NiftyClub.Controllers
 
 		void OnDisable ()
 		{
-			EventManager.Instance.RemoveListener<ChatSubmitEvent> (ChatSubmitHandler);
+			if (networkingClient != null)
+				networkingClient.MessageReceived -= OnMessageReceived;
+
+			if (EventManager.Instance != null)
+				EventManager.Instance.RemoveListener<ChatSubmitEvent> (ChatSubmitHandler);
 		}
 
 		#endregion
@@ -34,6 +44,9 @@ namespace NiftyClub.Controllers
 
 		private void ChatSubmitHandler (ChatSubmitEvent eventDetails)
 		{
+			if (networkingClient == null)
+				return;
+
 			if (networkingClient.ID != eventDetails.ID)
 				return;
 			
